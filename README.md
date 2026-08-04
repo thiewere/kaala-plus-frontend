@@ -1,6 +1,12 @@
-# KaalaPlusFrontend
+# Kaala-Plus-Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.14.
+Frontend of an ERP system designed to manage the complete purchasing and logistics workflow between international customers and Chinese suppliers.
+
+KAALA Plus ERP is a real-world software project being developed for an import-export business operating in China. The application aims to digitize and simplify the entire purchasing process, from customer orders to supplier management, payments, expenses, and container shipments.
+
+Besides solving a real business problem, this project also serves as a technical showcase of my software engineering skills in JavaScript/TypeScript and Angular with REST API development.
+
+You can find the backend hier: `https://github.com/thiewere/ms-kaala-plus`
 
 ## Development server
 
@@ -11,20 +17,6 @@ ng serve
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
 
 ## Building
 
@@ -53,7 +45,3 @@ ng e2e
 ```
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
