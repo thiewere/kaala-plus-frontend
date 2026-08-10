@@ -1,0 +1,23 @@
+<nav class="bg-yellow-100 shadow-md w-56 fixed flex flex-col justify-between top-0 left-0 bottom-0">
+    <a href=""
+        class="bg-cyan-800 text-yellow-100 uppercase py-5 font-extrabold text-xl text-center"
+    >
+        Kaala - Plus
+    </a>
+
+    <ul>
+        @for(link of LINS(); track link.id){
+            <li class="border-b border-cyan-900">
+                <a href=""
+                    class="flex gap-3 items-center py-2 pl-3 text-cyan-950 text-xl hover:bg-cyan-700 hover:text-yellow-100">
+                    <svg [pIcon]="link.icon" size="20"></svg>
+                    {{ link.label }}
+                </a>
+            </li>
+        }
+    </ul>
+
+    <button pButton severity="danger">
+        Déconnexion
+    </button>
+</nav>
