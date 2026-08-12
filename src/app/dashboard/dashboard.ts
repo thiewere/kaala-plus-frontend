@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { DashboardCard } from "./dashboard-card/dashboard-card";
+import { DashboardCardData } from './dashboard-card/dashboard-card-data';
+import { DASHBOARD_CARDS } from './data/dashboard-cards.data';
+
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [DashboardCard],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
-export class Dashboard {}
+export class Dashboard {
+
+  cards = signal<DashboardCardData[]>(DASHBOARD_CARDS)
+}
