@@ -1,0 +1,39 @@
+<div class="mr-3">
+    <div class=" rounded-md p-3  text-2xl shadow-xl bg-cyan-800 text-yellow-100 mb-5">
+        <h1>Dashboard</h1>
+    </div>
+
+    <section class="mb-5 max-w-300 m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        @for (card of cards(); track $index) {
+            <app-dashboard-card [card]="card"/>
+        }
+    </section>
+
+    <section class="bg-amber-100 rounded-lg border border-cyan-900 shadow-sm overflow-hidden">
+
+        <div class="p-6 border-b border-cyan-900">
+            <h2 class="text-lg font-semibold text-cyan-900">Commandes Récentes</h2>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-cyan-70">
+                        <th class="p-4 font-semibold border-b">#</th>
+                        <th class="p-4 font-semibold border-b">Référence</th>
+                        <th class="p-4 font-semibold border-b">Client</th>
+                        <th class="p-4 font-semibold border-b">Date</th>
+                        <th class="p-4 font-semibold border-b">Montant total</th>
+                        <th class="p-4 font-semibold border-b">Montant payé</th>
+                        <th class="p-4 font-semibold border-b">Reste à payer</th>
+                        <th class="p-4 font-semibold border-b">Paiement</th>
+                        <th class="p-4 font-semibold border-b">Statut</th>
+                        <th class="p-4 font-semibold border-b">Conteneur</th>
+                        <th class="p-4 font-semibold border-b">Action</th>
+                    </tr>
+                </thead>
+
+            </table>
+        </div>
+    </section>
+</div>
