@@ -1,3 +1,5 @@
+import { Client } from "../clients/client-list/client.model"
+
 export interface OrderProduct{
     id: number,
     order: Order,
@@ -19,16 +21,6 @@ export interface Order {
     currency: Currency,
     container: Container
 
-}
-
-export interface Client {
-    id: number,
-    firstname: string,
-    lastname: string,
-    phone: string,
-    country: string,
-    createdAt: string,
-    updatedAt: string
 }
 
 export interface Currency {
