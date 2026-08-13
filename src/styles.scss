@@ -3,6 +3,8 @@
 
 .orders-table {
      --p-datatable-row-striped-background: var(--p-cyan-700) !important;
+      --p-datatable-header-cell-color: var(--p-cyan-900);
+      --p-datatable-header-cell-background: var(--p-gray-300);
 }
 
 .orders-table .p-datatable-tbody > tr:nth-child(odd) {

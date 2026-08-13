@@ -2,4 +2,20 @@
     <app-header [header]="headerData()"/>
 
     <app-recherche-add [value]="searchAddFieldData()" />
+
+    <p-table [value]="clients()" stripedRows class="orders-table shadow-lg rounded-md overflow-hidden" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header >
+            <tr class="font-semibold text-xl">
+                    <th>#</th>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Téléphone</th>
+                    <th>Pays</th>
+                </tr>
+        </ng-template>
+        <ng-template #body let-client let-rowIndex="rowIndex">
+            <tr app-client-item [value]="client" [index]="rowIndex" >
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
