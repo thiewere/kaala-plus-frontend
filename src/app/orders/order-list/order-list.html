@@ -34,63 +34,7 @@
             </tr>
         </ng-template>
         <ng-template #body let-order>
-            <tr>
-                <td>
-                    <span class="font-medium">{{ order.id }}</span>
-                </td>
-                <td>
-                    <div class="flex items-center gap-2">
-                        
-                        <span>{{ order.order.reference }}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex items-center gap-2">
-                    
-                        <span class="text-sm">{{ order.order.client.firstname + ' ' +  order.order.client.lastname}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex items-center gap-2">
-                    
-                        <span class="text-sm">{{ order.order.createdAt}}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex items-center gap-2">
-                    
-                        <span class="text-sm">{{ order.totalPrice | currency }}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex items-center gap-2">
-                    
-                        <span class="text-sm">{{ order.totalPrice | currency }}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex items-center gap-2">
-                    
-                        <span class="text-sm">{{ order.totalPrice | currency }}</span>
-                    </div>
-                </td>
-                <td>
-                    <div class="flex items-center gap-2">
-                    
-                        <span class="text-sm">30%</span>
-                    </div>
-                </td>
-                <td>
-                    <p-tag [value]="order.order.orderState" [severity]="getSeverity(order.order.orderState)" />
-                </td>
-                
-                <td>
-                    <span class="font-semibold">MAERS</span>
-                </td>
-                <td>
-                    <span class="font-semibold">Edit</span>
-                </td>
-            </tr>
+            <tr app-order-item [order]="order"></tr>
         </ng-template>
     </p-table>
 

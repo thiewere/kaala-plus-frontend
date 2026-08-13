@@ -6,14 +6,14 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { AvatarModule } from 'primeng/avatar';
 
-import { CurrencyPipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { Header } from "../../header/header";
 import { HeaderData } from '../../header/header-data.model';
+import { OrderItem } from "../order-item/order-item";
 
 @Component({
   selector: 'app-order-list',
-  imports: [TableModule, TagModule, AvatarModule, CurrencyPipe, ButtonModule, Header],
+  imports: [TableModule, TagModule, AvatarModule, ButtonModule, Header, OrderItem],
   templateUrl: './order-list.html',
   styleUrl: './order-list.scss',
 })
