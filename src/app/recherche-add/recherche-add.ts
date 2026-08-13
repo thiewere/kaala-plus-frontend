@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { RechercheAddData } from './recherche-add-data.model';
 
 @Component({
   selector: 'app-recherche-add',
-  imports: [],
+  imports: [ButtonModule],
   templateUrl: './recherche-add.html',
   styleUrl: './recherche-add.scss',
 })
-export class RechercheAdd {}
+export class RechercheAdd {
+
+  value = input.required<RechercheAddData>();
+}

@@ -1,1 +1,11 @@
-<p>recherche-add works!</p>
+  <div class="bg-cyan-800 shadow-md mb-5 rounded-md p-3 flex justify-between items-center">
+        <input type="text"
+                name=""
+                id="search"
+                [placeholder]="value().placeholder"
+                class="bg-yellow-100 w-100 p-2 rounded-md text-cyan-900"
+                >
+        <button pButton>
+            {{value().label}}
+        </button>
+    </div>
