@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { OrderProduct } from '../order.model';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-order-item',
-  imports: [],
+  selector: 'tr[app-order-item]',
+  imports: [CurrencyPipe],
   templateUrl: './order-item.html',
   styleUrl: './order-item.scss',
 })
-export class OrderItem {}
+export class OrderItem {
+
+  order = input.required<OrderProduct>();
+}

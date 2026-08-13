@@ -1,1 +1,48 @@
-<p>order-item works!</p>
+<td>
+    <span class="font-medium">{{ order().id }}</span>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span>{{ order().order.reference }}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">{{ order().order.client.firstname + ' ' +  order().order.client.lastname}}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">{{ order().order.createdAt}}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">{{ order().totalPrice | currency }}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">{{ order().totalPrice | currency }}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">{{ order().totalPrice | currency }}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">30%</span>
+    </div>
+</td>
+<td>
+    <span class="text-sm">{{ order().order.orderState }}</span>
+</td>
+
+<td>
+    <span class="font-semibold">MAERS</span>
+</td>
+<td>
+    <span class="font-semibold">Edit</span>
+</td>
