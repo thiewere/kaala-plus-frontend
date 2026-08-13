@@ -13,4 +13,6 @@ export class OrderService {
   getOrderProducts() {
     return this.httpClient.get<OrderProduct[]>(`${this.baseUrl}/order_items`)
   }
+
+  // TODO: implement the logic to get all informations needed (Montant payé, Reste à payer, Paiement)
 }
