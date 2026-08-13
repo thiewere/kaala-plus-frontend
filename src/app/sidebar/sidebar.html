@@ -10,7 +10,7 @@
             <li class="border-b border-cyan-900"
                 [class.border-t]="$first"
             >
-                <a href=""
+                <a [routerLink]="link.link"
                     class="flex gap-3 items-center py-2 pl-3 text-cyan-950 text-xl hover:bg-cyan-700 hover:text-yellow-100">
                     <svg [pIcon]="link.icon" size="20"></svg>
                     {{ link.label }}
