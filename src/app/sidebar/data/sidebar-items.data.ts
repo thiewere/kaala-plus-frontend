@@ -27,18 +27,18 @@ export const SIDEBAR_ITEMS: SidebarItemData[] = [
     icon: 'building'
   },
   {
-    id: 4,
+    id: 5,
     label: 'Paiements', 
     icon: 'credit-card'
   },
   {
-    id: 4,
+    id: 6,
     label: 'Dépenses', 
     icon: 'wallet'
   },
   
   {
-    id: 4,
+    id: 7,
     label: 'Conteneurs', 
     icon: 'truck'
   },
