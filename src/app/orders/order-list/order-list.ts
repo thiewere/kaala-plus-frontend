@@ -10,10 +10,12 @@ import { ButtonModule } from 'primeng/button';
 import { Header } from "../../header/header";
 import { HeaderData } from '../../header/header-data.model';
 import { OrderItem } from "../order-item/order-item";
+import { RechercheAdd } from "../../recherche-add/recherche-add";
+import { RechercheAddData } from '../../recherche-add/recherche-add-data.model';
 
 @Component({
   selector: 'app-order-list',
-  imports: [TableModule, TagModule, AvatarModule, ButtonModule, Header, OrderItem],
+  imports: [TableModule, TagModule, AvatarModule, ButtonModule, Header, OrderItem, RechercheAdd],
   templateUrl: './order-list.html',
   styleUrl: './order-list.scss',
 })
@@ -23,6 +25,8 @@ export class OrderList {
   orders = signal<OrderProduct[]>([]);
 
   protected readonly headerData = signal<HeaderData>({title: "Liste des commandes", icon: "shopping-cart"})
+ 
+  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par le nom", label: "Nouvelle Commande"})
 
   constructor() {
     this.orderService.getOrderProducts().subscribe((data) => {
