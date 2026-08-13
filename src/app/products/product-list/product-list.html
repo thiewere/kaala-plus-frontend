@@ -2,4 +2,16 @@
     <app-header [header]="headerData()"/>
 
     <app-recherche-add [value]="searchAddFieldData()" />
+
+     <p-table [value]="products()" stripedRows class="orders-table shadow-lg rounded-md overflow-hidden mx-auto" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }">
+        <ng-template #header >
+            <tr class="font-semibold text-xl">
+                    <th>#</th>
+                    <th>Nom</th>
+                </tr>
+        </ng-template>
+        <ng-template #body let-product let-rowIndex="rowIndex">
+           <tr app-product-item [value]="product" [index]="rowIndex"></tr>
+        </ng-template>
+    </p-table>
 </div>
