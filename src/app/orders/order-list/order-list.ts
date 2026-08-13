@@ -2,13 +2,18 @@ import { Component, inject, signal } from '@angular/core';
 import { OrderService } from '../order-service';
 import { OrderProduct } from '../order.model';
 
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { AvatarModule } from 'primeng/avatar';
+
+import { CurrencyPipe } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { Header } from "../../header/header";
 import { HeaderData } from '../../header/header-data.model';
 
 @Component({
   selector: 'app-order-list',
-  imports: [ButtonModule, Header],
+  imports: [TableModule, TagModule, AvatarModule, CurrencyPipe, ButtonModule, Header],
   templateUrl: './order-list.html',
   styleUrl: './order-list.scss',
 })
@@ -24,5 +29,23 @@ export class OrderList {
       this.orders.set(data)
     })
   }
-  
+
+   getSeverity(status: string) {
+        switch (status) {
+            case 'qualified':
+                return 'success';
+            case 'unqualified':
+                return 'danger';
+            case 'negotiation':
+                return 'warn';
+            case 'new':
+                return 'info';
+            case 'renewal':
+                return 'secondary';
+            case 'proposal':
+                return 'info';
+            default:
+                return 'secondary';
+        }
+    }
 }

@@ -14,4 +14,84 @@
         </button>
     </div>
 
+    <p-table [value]="orders()" 
+            stripedRows 
+            class="orders-table shadow-lg "
+            [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                    <th >#</th>
+                    <th >Référence</th>
+                    <th >Client</th>
+                    <th >Date</th>
+                    <th >Montant total</th>
+                    <th >Montant payé</th>
+                    <th >Reste à payer</th>
+                    <th >Paiement</th>
+                    <th >Statut</th>
+                    <th >Conteneur</th>
+                    <th >Action</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-order>
+            <tr>
+                <td>
+                    <span class="font-medium">{{ order.id }}</span>
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                        
+                        <span>{{ order.order.reference }}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                    
+                        <span class="text-sm">{{ order.order.client.firstname + ' ' +  order.order.client.lastname}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                    
+                        <span class="text-sm">{{ order.order.createdAt}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                    
+                        <span class="text-sm">{{ order.totalPrice | currency }}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                    
+                        <span class="text-sm">{{ order.totalPrice | currency }}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                    
+                        <span class="text-sm">{{ order.totalPrice | currency }}</span>
+                    </div>
+                </td>
+                <td>
+                    <div class="flex items-center gap-2">
+                    
+                        <span class="text-sm">30%</span>
+                    </div>
+                </td>
+                <td>
+                    <p-tag [value]="order.order.orderState" [severity]="getSeverity(order.order.orderState)" />
+                </td>
+                
+                <td>
+                    <span class="font-semibold">MAERS</span>
+                </td>
+                <td>
+                    <span class="font-semibold">Edit</span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
 </div>
