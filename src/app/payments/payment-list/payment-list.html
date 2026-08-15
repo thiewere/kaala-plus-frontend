@@ -1,0 +1,22 @@
+<div>
+    <app-header [header]="headerData()" />
+
+    <app-recherche-add [value]="searchAddFieldData()" />
+
+    <p-table [value]="payments()" stripedRows class="orders-table shadow-lg rounded-md overflow-hidden mx-auto" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }">
+        <ng-template #header >
+            <tr class="font-semibold text-xl">
+                    <th>#</th>
+                    <th>Order</th>
+                    <th>Client</th>
+                    <th>Payment Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Note</th>
+                </tr>
+        </ng-template>
+        <ng-template #body let-payment let-rowIndex="rowIndex">
+          <tr app-payment-item [value]="payment" [index]="rowIndex"></tr>
+        </ng-template>
+    </p-table>
+</div>
