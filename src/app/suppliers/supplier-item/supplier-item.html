@@ -1,1 +1,9 @@
-<p>supplier-item works!</p>
+<td> {{index() + 1}} </td>
+
+@let supp = value().supplier;
+<td> {{ supp.name }} </td>
+<td> {{ supp.phone }} </td>
+<td> {{ supp.address }} </td>
+
+<td> {{ value().product.name }} </td>
+<td> {{ value().unitPrice | currency}} </td>
