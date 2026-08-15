@@ -5,6 +5,7 @@ import { ClientList } from './clients/client-list/client-list';
 import { ProductList } from './products/product-list/product-list';
 import { SupplierList } from './suppliers/supplier-list/supplier-list';
 import { PaymentList } from './payments/payment-list/payment-list';
+import { ExpenseList } from './expenses/expense-list/expense-list';
 
 export const routes: Routes = [
     {path: '', component: Dashboard},
@@ -13,5 +14,6 @@ export const routes: Routes = [
     {path: 'products', component: ProductList},
     {path: 'suppliers', component: SupplierList},
     {path: 'payments', component: PaymentList},
+    {path: 'expenses', component: ExpenseList},
     
 ];
