@@ -1,5 +1,6 @@
 import { Client } from "../clients/client-list/client.model"
 import { Product } from "../products/product.model"
+import { Supplier, SupplierProduct } from "../suppliers/supplier.model"
 
 export interface OrderProduct{
     id: number,
@@ -36,19 +37,5 @@ export interface Container {
     updatedAt: string
 }
 
-export interface SupplierProduct {
-    id: number,
-    supplier: Supplier,
-    product: Product,
-    unitPrice: number
-}
 
-export interface Supplier {
-    id: number,
-    name: string,
-    phone: string,
-    address: string,
-    createdAt: string,
-    updatedAt: string
-}
 
