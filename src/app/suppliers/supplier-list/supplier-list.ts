@@ -6,10 +6,11 @@ import { RechercheAdd } from "../../recherche-add/recherche-add";
 import { TableModule } from 'primeng/table';
 import { SupplierService } from '../supplier-service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { SupplierItem } from "../supplier-item/supplier-item";
 
 @Component({
   selector: 'app-supplier-list',
-  imports: [Header, RechercheAdd, TableModule],
+  imports: [Header, RechercheAdd, TableModule, SupplierItem],
   templateUrl: './supplier-list.html',
   styleUrl: './supplier-list.scss',
 })

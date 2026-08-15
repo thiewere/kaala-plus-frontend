@@ -3,7 +3,7 @@
 
     <app-recherche-add [value]="searchAddFieldData()" />
 
-    <p-table [value]="" stripedRows class="orders-table shadow-lg rounded-md overflow-hidden mx-auto" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }">
+    <p-table [value]="suppliers()" stripedRows class="orders-table shadow-lg rounded-md overflow-hidden mx-auto" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }">
         <ng-template #header >
             <tr class="font-semibold text-xl">
                     <th>#</th>
@@ -15,7 +15,7 @@
                 </tr>
         </ng-template>
         <ng-template #body let-supplier let-rowIndex="rowIndex">
-          <tr></tr>
+          <tr app-supplier-item [value]="supplier" [index]="rowIndex" ></tr>
         </ng-template>
     </p-table>
 </div>
