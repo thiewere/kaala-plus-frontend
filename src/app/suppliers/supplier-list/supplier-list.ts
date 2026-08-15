@@ -1,9 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { HeaderData } from '../../header/header-data.model';
+import { Header } from "../../header/header";
 
 @Component({
   selector: 'app-supplier-list',
-  imports: [],
+  imports: [Header],
   templateUrl: './supplier-list.html',
   styleUrl: './supplier-list.scss',
 })
-export class SupplierList {}
+export class SupplierList {
+
+  protected readonly headerData = signal<HeaderData>({title: "Liste des Fournisseurs", icon: "building"})
+ 
+
+}
