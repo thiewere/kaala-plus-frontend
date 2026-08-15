@@ -19,8 +19,8 @@
                     <th >Action</th>
             </tr>
         </ng-template>
-        <ng-template #body let-expense>
-            <tr></tr>
+        <ng-template #body let-expense let-indexRow="indexRow">
+            <tr app-expense-item [value]="expense" [index]="indexRow" ></tr>
         </ng-template>
     </p-table>
 </div>

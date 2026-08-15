@@ -6,10 +6,11 @@ import { RechercheAdd } from "../../recherche-add/recherche-add";
 import { ExpenseService } from '../expense-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { TableModule } from 'primeng/table';
+import { ExpenseItem } from '../expense-item/expense-item';
 
 @Component({
   selector: 'app-expense-list',
-  imports: [Header, RechercheAdd, TableModule],
+  imports: [Header, RechercheAdd, TableModule, ExpenseItem],
   templateUrl: './expense-list.html',
   styleUrl: './expense-list.scss',
 })
