@@ -5,10 +5,11 @@ import { RechercheAddData } from '../../recherche-add/recherche-add-data.model';
 import { RechercheAdd } from "../../recherche-add/recherche-add";
 import { ExpenseService } from '../expense-service';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-expense-list',
-  imports: [Header, RechercheAdd],
+  imports: [Header, RechercheAdd, TableModule],
   templateUrl: './expense-list.html',
   styleUrl: './expense-list.scss',
 })

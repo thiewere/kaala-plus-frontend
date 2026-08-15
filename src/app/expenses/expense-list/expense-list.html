@@ -2,4 +2,25 @@
     <app-header [header]="headerData()" />
 
     <app-recherche-add [value]="searchAddFieldData()" />
+
+     <p-table [value]="expenses()" 
+            stripedRows 
+            class="orders-table shadow-lg rounded-md overflow-hidden"
+            [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr class="font-semibold text-xl">
+                    <th >#</th>
+                    <th >Commande</th>
+                    <th >Client</th>
+                    <th >Type de Dépense</th>
+                    <th >Montant</th>
+                    <th >Description</th>
+                    <th >Date</th>
+                    <th >Action</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-expense>
+            <tr></tr>
+        </ng-template>
+    </p-table>
 </div>
