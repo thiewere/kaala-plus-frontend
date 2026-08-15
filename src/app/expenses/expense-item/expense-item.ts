@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { Expense } from '../expense.model';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-expense-item',
-  imports: [],
+  selector: 'tr[app-expense-item]',
+  imports: [CurrencyPipe],
   templateUrl: './expense-item.html',
   styleUrl: './expense-item.scss',
 })
-export class ExpenseItem {}
+export class ExpenseItem {
+  value = input.required<Expense>();
+  index = input.required<number>();
+}

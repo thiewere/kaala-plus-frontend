@@ -1,1 +1,12 @@
-<p>expense-item works!</p>
+<td> {{ index() + 1 }} </td>
+
+@let order = value().order;
+<td> {{ order.reference }} </td>
+<td> {{ `${order.client.firstname} ${order.client.lastname}` }} </td>
+
+<td> {{ value().expenseType }} </td>
+<td> {{ value().amount | currency}} </td>
+
+<td> {{ value().description }} </td>
+<td> {{ value().expenseDate }} </td>
+<td> Edit </td>
