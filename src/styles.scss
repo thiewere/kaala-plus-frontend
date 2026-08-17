@@ -2,11 +2,22 @@
 @use './tailwind.css';
 
 .orders-table {
-     --p-datatable-row-striped-background: var(--p-cyan-700) !important;
+     --p-datatable-row-striped-background: var(--p-cyan-100) !important;
       --p-datatable-header-cell-color: var(--p-cyan-900);
       --p-datatable-header-cell-background: var(--p-gray-300);
 }
 
 .orders-table .p-datatable-tbody > tr:nth-child(odd) {
-  color: var(--p-yellow-100);
+  color: var(--p-cyan-950);
+  
+}
+
+.invalid-feedback {
+  display: none;
+  color: var(--p-red-500);
+}
+
+.ng-invalid.ng-dirty + .invalid-feedback,
+.ng-invalid.ng-touched + .invalid-feedback {
+  display: block;
 }

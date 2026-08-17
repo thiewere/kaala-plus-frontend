@@ -5,7 +5,7 @@
                 [placeholder]="value().placeholder"
                 class="bg-yellow-100 w-100 p-2 rounded-md text-cyan-900"
                 >
-        <button pButton>
+        <button pButton [routerLink]="value().link">
             {{value().label}}
         </button>
     </div>

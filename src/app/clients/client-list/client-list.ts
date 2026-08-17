@@ -18,7 +18,7 @@ export class ClientList {
 
   protected readonly headerData = signal<HeaderData>({title: 'Liste des Clients', icon: 'users'});
 
-  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par le nom", label: "Nouveau Client"})
+  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par le nom", label: "Nouveau Client", link: "create"})
 
   clientService = inject(ClientService);
 
@@ -26,6 +26,5 @@ export class ClientList {
 
   constructor() {
     this.clientService.getClients().subscribe((client) => this.clients.set(client));
-    console.log(this.clients())
   }
 }

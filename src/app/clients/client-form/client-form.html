@@ -1,0 +1,32 @@
+ <div>
+    <app-header [header]="headerData()" />
+
+ <p-card class="max-w-300 mx-auto  shadow-xl">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="field">
+            <label for="firstname">Prénom</label>
+            <input formControlName="firstname" type="text" name="" id="firstname" pInputText class="w-full">
+            <small class="invalid-feedback">Le prénom est requis (max 30 carac.)</small>
+        </div>
+        <div class="field">
+            <label for="lastname">Nom</label>
+            <input formControlName="lastname" type="text" name="" id="lastname" pInputText class="w-full" />
+            <small class="invalid-feedback">Le nom est requis</small>
+        </div>
+        <div class="field">
+            <label for="phone">Téléphone</label>
+            <input formControlName="phone" type="text" name="" id="phone" pInputText class="w-full">
+            <small class="invalid-feedback">Le téléphone est requis (max 30 carac.)</small>
+        </div>
+        <div class="field">
+            <label for="country">Pays</label>
+            <input formControlName="country" type="text" name="" id="country" pTextarea class="w-full" />
+            <small class="invalid-feedback">Le pays est requis</small>
+        </div>
+        <div class="flex justify-end gap-5 mt-5">
+            <button type="reset" routerLink="/" severity="secondary" pButton class="hover:bg-yellow-100">Annuler</button>
+            <button type="submit" label="Créer" pButton>Créer</button>
+        </div>
+    </form>
+</p-card>
+ </div>

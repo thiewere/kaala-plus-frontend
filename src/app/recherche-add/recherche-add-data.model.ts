@@ -1,4 +1,5 @@
 export interface RechercheAddData {
     placeholder: string,
-    label: string
+    label: string,
+    link?: string,
 }
