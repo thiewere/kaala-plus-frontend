@@ -26,7 +26,7 @@ export class OrderList {
 
   protected readonly headerData = signal<HeaderData>({title: "Liste des commandes", icon: "shopping-cart"})
  
-  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par le nom", label: "Nouvelle Commande"})
+  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par le nom", label: "Nouvelle Commande", link: "create"})
 
   constructor() {
     this.orderService.getOrderProducts().subscribe((data) => {
