@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -8,16 +8,22 @@ import { Header } from "../../header/header";
 import { HeaderData } from '../../header/header-data.model';
 import { ClientService } from '../client-service';
 import { Router } from '@angular/router';
+import { NgTemplateOutlet } from '@angular/common';
+import { Client } from '../client-list/client.model';
+
 
 @Component({
   selector: 'app-client-form',
-  imports: [CardModule, ReactiveFormsModule, InputTextModule, TextareaModule, ButtonModule, Header],
+  imports: [CardModule, ReactiveFormsModule, InputTextModule, TextareaModule, ButtonModule, Header, NgTemplateOutlet],
   templateUrl: './client-form.html',
   styleUrl: './client-form.scss',
 })
 export class ClientForm {
   clientService = inject(ClientService);
   router = inject(Router);
+
+  dialogMode = input(false);
+  clientCreated = output<Client>();
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Clients', icon: 'user'});
 
@@ -34,7 +40,13 @@ export class ClientForm {
     if(this.form.invalid) return; 
     
     const client = this.form.getRawValue();
-    this.clientService.createClient(client).subscribe(() => void this.router.navigate(['clients']));
+    this.clientService.createClient(client).subscribe((createdClient) => {
+      if(this.dialogMode()){
+        this.clientCreated.emit(createdClient);
+      } else {
+        void this.router.navigate(['clients'])
+      }
+    });
     
   }
 }

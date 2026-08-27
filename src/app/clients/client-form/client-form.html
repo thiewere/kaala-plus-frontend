@@ -1,7 +1,4 @@
- <div>
-    <app-header [header]="headerData()" />
-
- <p-card class="max-w-300 mx-auto  shadow-xl">
+ <ng-template #clientFormTemplate>
     <form [formGroup]="form" (ngSubmit)="submit()">
         <div class="field">
             <label for="firstname">Prénom</label>
@@ -28,5 +25,20 @@
             <button type="submit" label="Créer" pButton>Créer</button>
         </div>
     </form>
-</p-card>
- </div>
+ </ng-template>
+
+ @if (dialogMode()) {
+    <ng-container
+        *ngTemplateOutlet="clientFormTemplate">
+    </ng-container>
+ } @else {
+    <div>
+        <app-header [header]="headerData()" />
+
+    <p-card class="max-w-300 mx-auto  shadow-xl">
+        <ng-container
+            *ngTemplateOutlet="clientFormTemplate">
+        </ng-container>
+    </p-card>
+    </div>
+  }
