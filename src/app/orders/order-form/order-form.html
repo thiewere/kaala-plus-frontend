@@ -98,4 +98,12 @@
         }
     </p-card>
 
+    <div class="flex justify-center">
+            
+        <p-dialog [(visible)]="showDialog" [modal]="true" header="Ajouter un nouveau client" [style]="{ width: '24rem' }">
+            <app-client-form 
+                [dialogMode]="true"
+                (clientCreated)="onClientCreated($event)" />
+        </p-dialog>
+    </div>
 </div>

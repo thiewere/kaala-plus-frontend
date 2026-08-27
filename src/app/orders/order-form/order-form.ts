@@ -14,12 +14,13 @@ import { TableModule } from "primeng/table";
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { Textarea } from "primeng/textarea";
+import { ClientForm } from "../../clients/client-form/client-form";
 
 @Component({
   selector: 'app-order-form',
   imports: [Header, AutoCompleteModule,
     CardModule, LabelModule, FormsModule, TableModule,
-    ReactiveFormsModule, ButtonModule, DialogModule, Textarea],
+    ReactiveFormsModule, ButtonModule, DialogModule, Textarea, ClientForm],
   templateUrl: './order-form.html',
   styleUrl: './order-form.scss',
 })
@@ -68,5 +69,10 @@ export class OrderForm {
 
     console.log(this.orderForm.value)
   }
-
+  
+  onClientCreated(client: Client) {
+    this.selectedClient = client;
+    this.showDialog = false;
+    console.log(this.selectedClient)
+  }
 }
