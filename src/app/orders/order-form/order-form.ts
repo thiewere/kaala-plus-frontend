@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Header } from "../../header/header";
 import { HeaderData } from '../../header/header-data.model';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { AutoCompleteCompleteEvent, AutoCompleteModule } from 'primeng/autocomplete';
 import { CardModule } from 'primeng/card';
@@ -13,13 +13,13 @@ import { Client } from '../../clients/client-list/client.model';
 import { TableModule } from "primeng/table";
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-
+import { Textarea } from "primeng/textarea";
 
 @Component({
   selector: 'app-order-form',
   imports: [Header, AutoCompleteModule,
     CardModule, LabelModule, FormsModule, TableModule,
-    ReactiveFormsModule, ButtonModule, DialogModule],
+    ReactiveFormsModule, ButtonModule, DialogModule, Textarea],
   templateUrl: './order-form.html',
   styleUrl: './order-form.scss',
 })
@@ -31,11 +31,16 @@ export class OrderForm {
   clients = toSignal(this.clientService.getClients());
   
   showDialog: boolean = false;
-  
+
   searchValue = '';
   selectedClient: Client | undefined;
 
   filteredItems: Client[] = [];
+
+  orderForm = new FormGroup({
+    clientId: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
+    description: new FormControl('', {validators: [Validators.required]})
+  });
 
   search(event: AutoCompleteCompleteEvent) {
   const query = event.query.toLowerCase();
@@ -48,11 +53,20 @@ export class OrderForm {
 
   selectClient(event: any) {
     this.selectedClient = event.value;
+    this.orderForm.patchValue({
+      clientId: this.selectedClient?.id
+    });
   }
 
   changeClient() {
     this.selectedClient = undefined;
     this.searchValue = '';
+  }
+
+  submit() {
+    if(this.orderForm.invalid) return
+
+    console.log(this.orderForm.value)
   }
 
 }

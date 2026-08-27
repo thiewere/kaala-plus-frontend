@@ -62,7 +62,37 @@
                             Changer
                         </button>
                     </div>
+             </div>
+
+             <div>
+                <div class="flex items-center gap-3 mb-3">
+                        <span class="flex items-center justify-center size-7 rounded-full bg-cyan-800 text-amber-100 font-semibold">
+                            2
+                        </span>
+
+                        <h2 class="font-semibold text-shadow-cyan-950 uppercase">
+                            Demande du client
+                        </h2>
                 </div>
+                <form [formGroup]="orderForm" (ngSubmit)="submit()">
+                    <div class="field flex flex-col ">
+                        <label pLabel for="description" class="mb-2">Description de la demande</label>
+                        <textarea pTextarea
+                            rows="5"
+                            class="w-full"
+                            formControlName="description" 
+                            id="description"
+                            placeholder="Décrivez le produit ou le besoin communiqué par le client..." >
+                        </textarea>
+                        <small class="invalid-feedback">La description du besoin est requise!</small>
+                    </div>
+                    <div class="flex justify-center gap-5 mt-6">
+                        <button type="reset" severity="secondary" pButton class="hover:bg-yellow-100">Annuler</button>
+                        <button type="submit" pButton>Créer la commande</button>
+                        <button type="submit" class="ml-auto bg-amber-50"  pButton>Créer et Completer</button>
+                    </div>
+                </form>
+             </div>
 
             </div>
         }
