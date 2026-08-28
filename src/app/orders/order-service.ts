@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { OrderProduct } from './order.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,11 +9,13 @@ import { OrderProduct } from './order.model';
 export class OrderService {
   httpClient = inject(HttpClient);
 
-  baseUrl = "http://localhost:8080/api"
+  baseUrl = environment.apiUrl + 'order_items';
 
   getOrderProducts() {
-    return this.httpClient.get<OrderProduct[]>(`${this.baseUrl}/order_items`)
+    return this.httpClient.get<OrderProduct[]>(this.baseUrl)
   }
 
   // TODO: implement the logic to get all informations needed (Montant payé, Reste à payer, Paiement)
+
+
 }
