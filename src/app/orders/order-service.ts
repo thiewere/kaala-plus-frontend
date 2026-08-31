@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { OrderProduct } from './order.model';
+import { Order, OrderProduct } from './order.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -17,5 +17,7 @@ export class OrderService {
 
   // TODO: implement the logic to get all informations needed (Montant payé, Reste à payer, Paiement)
 
-
+  createOrder(order: Order) {
+    return this.httpClient.post<Order>(this.baseUrl, order);
+  }
 }
