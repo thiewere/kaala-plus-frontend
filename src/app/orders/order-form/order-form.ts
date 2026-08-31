@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { Textarea } from "primeng/textarea";
 import { ClientForm } from "../../clients/client-form/client-form";
+import { OrderService } from '../order-service';
 
 @Component({
   selector: 'app-order-form',
@@ -28,6 +29,7 @@ export class OrderForm {
   protected readonly headerData = signal<HeaderData>({title: "Ajouter une commande", icon: "plus"})
 
   clientService = inject(ClientService);
+  orderService = inject(OrderService);
 
   clients = toSignal(this.clientService.getClients());
   
@@ -65,9 +67,11 @@ export class OrderForm {
   }
 
   submit() {
+    this.orderForm.markAllAsTouched();
     if(this.orderForm.invalid) return
 
-    console.log(this.orderForm.value)
+    const order = this.orderForm.getRawValue();
+    console.log(order)
   }
   
   onClientCreated(client: Client) {
