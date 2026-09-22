@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Header } from "../../header/header";
 import { HeaderData } from '../../header/header-data.model';
 import { FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -18,12 +18,15 @@ import { ClientForm } from "../../clients/client-form/client-form";
 import { OrderService } from '../order-service';
 import { Product } from '../../products/product.model';
 import { ProductService } from '../../products/product-service';
+import { SupplierService } from '../../suppliers/supplier-service';
+import { SelectModule } from 'primeng/select';
+import { Supplier } from '../../suppliers/supplier.model';
 
 @Component({
   selector: 'app-order-form',
   imports: [Header, AutoCompleteModule,
     CardModule, LabelModule, FormsModule, TableModule,
-    ReactiveFormsModule, ButtonModule, DialogModule, Textarea, ClientForm],
+    ReactiveFormsModule, ButtonModule, DialogModule, Textarea, ClientForm, SelectModule],
   templateUrl: './order-form.html',
   styleUrl: './order-form.scss',
 })
@@ -33,9 +36,12 @@ export class OrderForm {
   clientService = inject(ClientService);
   orderService = inject(OrderService);
   productService = inject(ProductService);
+  supplierService = inject(SupplierService);
 
   clients = toSignal(this.clientService.getClients());
-  products = toSignal(this.productService.getProducts());  
+  products = toSignal(this.productService.getProducts());
+  supplierProducts = toSignal(this.supplierService.getSuppliers());
+  
   
   currentStep = signal<1 | 2>(1);
 
@@ -47,13 +53,21 @@ export class OrderForm {
   filteredItems: Client[] = [];
 
   searchProductValue = '';
-  selectedProduct: Product | undefined;
+  selectedProduct = signal<Product | undefined>(undefined);
   filteredProducts: Product[] = [];
 
   orderForm = new FormGroup({
     clientId: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
     description: new FormControl('', {validators: [Validators.required]})
   });
+
+  selectedSupplier: Supplier | undefined;
+  filteredSuppliers = computed(() => {
+    const product = this.selectedProduct();
+    const items = this.supplierProducts();
+
+    return items?.filter((item) => item.product.id === product?.id)
+  })
 
   search(event: AutoCompleteCompleteEvent) {
   const query = event.query.toLowerCase();
@@ -101,7 +115,12 @@ export class OrderForm {
   }
 
   selectProduct(event: any) {
-    this.selectedProduct = event.value;
+    this.selectedProduct.set(event.value);
+  }
+
+  changeProduct() {
+    this.selectedProduct.set(undefined);
+    this.searchProductValue = '';
   }
 
   backward() {
