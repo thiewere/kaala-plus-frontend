@@ -16,6 +16,8 @@ import { DialogModule } from 'primeng/dialog';
 import { Textarea } from "primeng/textarea";
 import { ClientForm } from "../../clients/client-form/client-form";
 import { OrderService } from '../order-service';
+import { Product } from '../../products/product.model';
+import { ProductService } from '../../products/product-service';
 
 @Component({
   selector: 'app-order-form',
@@ -30,15 +32,23 @@ export class OrderForm {
 
   clientService = inject(ClientService);
   orderService = inject(OrderService);
+  productService = inject(ProductService);
 
   clients = toSignal(this.clientService.getClients());
+  products = toSignal(this.productService.getProducts());  
   
+  currentStep = signal<1 | 2>(1);
+
   showDialog: boolean = false;
 
   searchValue = '';
   selectedClient: Client | undefined;
 
   filteredItems: Client[] = [];
+
+  searchProductValue = '';
+  selectedProduct: Product | undefined;
+  filteredProducts: Product[] = [];
 
   orderForm = new FormGroup({
     clientId: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
@@ -72,6 +82,30 @@ export class OrderForm {
 
     const order = this.orderForm.getRawValue();
     console.log(order)
+  }
+
+  createAndComplete() {
+    this.orderForm.markAllAsTouched();
+    if(this.orderForm.invalid || !this.selectedClient) return
+
+    this.currentStep.set(2);
+  }
+
+  searchProduct(event: AutoCompleteCompleteEvent){
+    const query = event.query.toLowerCase();
+    this.filteredProducts = query ? (this.products() ?? []).filter((product) => 
+    `${product.name}`
+    .toLowerCase()
+    .includes(query)
+    ) : [];
+  }
+
+  selectProduct(event: any) {
+    this.selectedProduct = event.value;
+  }
+
+  backward() {
+    this.currentStep.set(1);
   }
   
   onClientCreated(client: Client) {
