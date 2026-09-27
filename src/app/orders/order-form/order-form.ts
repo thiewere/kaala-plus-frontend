@@ -66,7 +66,9 @@ export class OrderForm {
     description: new FormControl('', {validators: [Validators.required]})
   });
 
-
+  orderItems: OrderProduct[] = [];
+  unitPrice: number | null = null;
+  quantity: number = 1;
   selectedSupplierProduct: SupplierProduct | undefined;
   filteredSuppliers = computed(() => {
     const product = this.selectedProduct();
@@ -137,5 +139,28 @@ export class OrderForm {
     this.selectedClient = client;
     this.showDialog = false;
     console.log(this.selectedClient)
+  }
+
+  addItem() {
+    if (!this.selectedSupplierProduct || !this.unitPrice) return
+
+    const item: OrderProduct = {
+      supplierProduct: this.selectedSupplierProduct,
+      quantity: this.quantity,
+      unitPrice: this.unitPrice,
+      totalPrice: this.unitPrice * this.quantity
+    };
+
+    this.orderItems.push(item);
+      
+    this.resetCurrentItem();
+  }
+
+  resetCurrentItem() {
+    this.selectedProduct.set(undefined);
+    this.selectedSupplierProduct = undefined;
+    this.quantity = 1;
+    this.unitPrice = null;
+    this.searchProductValue = '';
   }
 }
