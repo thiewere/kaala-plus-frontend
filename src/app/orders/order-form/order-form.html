@@ -175,10 +175,41 @@
                         
                         <div class="flex justify-center">
                             <p-select [options]="filteredSuppliers()" 
-                                [(ngModel)]="selectedSupplier" 
+                                [(ngModel)]="selectedSupplierProduct" 
                                 optionLabel="supplier.name" 
                                 placeholder="Choisir un fournisseur" class="w-full" />
                         </div>
+                            
+                        @if (selectedSupplierProduct) {
+                            <div class="mt-4">
+                                <div>
+                                    <span>Prix fournisseur :</span>
+                                    <strong>
+                                    {{ selectedSupplierProduct.unitPrice }}
+                                    </strong>
+                                </div>
+                                <div class="flex gap-4 mt-4">
+                                    <div>
+                                        <label for="quantity">Quantité</label>
+                                        <p-inputnumber
+                                            inputId="quantity"
+                                            [(ngModel)]="quantity"
+                                            [min]="1"
+                                            [showButtons]="true"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label for="unitPrice">Prix de vente</label>
+                                        <p-inputnumber
+                                            inputId="unitPrice"
+                                            [(ngModel)]="unitPrice"
+                                            [min]="0"
+                                            mode="decimal"
+                                        />
+                                    </div>
+
+                                </div>
 
                         <div class="flex justify-center gap-5 mt-6">
                             <button type="button"

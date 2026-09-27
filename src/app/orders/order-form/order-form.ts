@@ -20,13 +20,17 @@ import { Product } from '../../products/product.model';
 import { ProductService } from '../../products/product-service';
 import { SupplierService } from '../../suppliers/supplier-service';
 import { SelectModule } from 'primeng/select';
-import { Supplier } from '../../suppliers/supplier.model';
+import { SupplierProduct } from '../../suppliers/supplier.model';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { OrderProduct } from '../order.model';
 
 @Component({
   selector: 'app-order-form',
   imports: [Header, AutoCompleteModule,
     CardModule, LabelModule, FormsModule, TableModule,
-    ReactiveFormsModule, ButtonModule, DialogModule, Textarea, ClientForm, SelectModule],
+    ReactiveFormsModule, ButtonModule, DialogModule, Textarea, ClientForm, SelectModule,
+    InputNumberModule, InputTextModule],
   templateUrl: './order-form.html',
   styleUrl: './order-form.scss',
 })
@@ -62,7 +66,8 @@ export class OrderForm {
     description: new FormControl('', {validators: [Validators.required]})
   });
 
-  selectedSupplier: Supplier | undefined;
+
+  selectedSupplierProduct: SupplierProduct | undefined;
   filteredSuppliers = computed(() => {
     const product = this.selectedProduct();
     const items = this.supplierProducts();
