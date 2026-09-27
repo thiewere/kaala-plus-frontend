@@ -3,9 +3,9 @@ import { Product } from "../products/product.model"
 import { Supplier, SupplierProduct } from "../suppliers/supplier.model"
 
 export interface OrderProduct{
-    id: number,
-    order: Order,
-    currency: Currency,
+    id?: number,
+    order?: Order,
+    currency?: Currency,
     quantity: number,
     unitPrice: number,
     totalPrice: number,
