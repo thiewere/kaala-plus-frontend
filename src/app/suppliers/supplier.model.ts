@@ -1,3 +1,4 @@
+import { Currency } from "../orders/order.model"
 import { Product } from "../products/product.model"
 
 export interface Supplier {
@@ -13,5 +14,6 @@ export interface SupplierProduct {
     id: number,
     supplier: Supplier,
     product: Product,
-    unitPrice: number
+    unitPrice: number,
+    currency?: Currency
 }
