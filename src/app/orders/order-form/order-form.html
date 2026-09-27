@@ -76,6 +76,14 @@
                                 </h2>
                         </div>
                         <form [formGroup]="orderForm" (ngSubmit)="submit()">
+                            <div class="field flex gap-3 mb-4">
+                                <label pLabel for="currency" class="mb-2">Devise: </label>
+                                <input pInputText
+                                    id="currency"
+                                    formControlName="currency"
+                                    placeholder="Entrer la devise" class="w-50" />
+                            </div>
+
                             <div class="field flex flex-col ">
                                 <label pLabel for="description" class="mb-2">Description de la demande</label>
                                 <textarea pTextarea

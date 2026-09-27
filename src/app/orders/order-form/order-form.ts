@@ -58,6 +58,7 @@ export class OrderForm {
 
   orderForm = new FormGroup({
     clientId: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
+    currency: new FormControl('', {validators: [Validators.required]}),
     description: new FormControl('', {validators: [Validators.required]})
   });
 
