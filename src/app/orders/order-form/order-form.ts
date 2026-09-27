@@ -47,7 +47,7 @@ export class OrderForm {
   supplierProducts = toSignal(this.supplierService.getSuppliers());
   
   
-  currentStep = signal<1 | 2>(1);
+  currentStep = signal<1 | 2 | 3>(1);
 
   showDialog: boolean = false;
 
@@ -162,5 +162,11 @@ export class OrderForm {
     this.quantity = 1;
     this.unitPrice = null;
     this.searchProductValue = '';
+  }
+
+  continueToSummary() {
+    if(this.orderItems.length === 0) return;
+
+    this.currentStep.set(3);
   }
 }
