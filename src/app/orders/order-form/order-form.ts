@@ -132,7 +132,7 @@ export class OrderForm {
   }
 
   backward() {
-    this.currentStep.set(1);
+    this.currentStep() === 2 ? this.currentStep.set(1) : this.currentStep.set(2);
   }
   
   onClientCreated(client: Client) {

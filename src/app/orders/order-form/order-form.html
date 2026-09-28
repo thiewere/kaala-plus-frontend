@@ -272,12 +272,80 @@
                             severity="secondary" pButton class="hover:bg-yellow-100">Retour</button>
                         <button type="button"
                             pButton
-                            (click)="addItem()"
+                            (click)="continueToSummary()"
                             [disabled]="selectedProduct() || orderItems.length === 0"
                             >Continuer</button>
                 </div>
             </div>
-        }  
+        }
+        
+        <!--SUMMARY OF THE ORDER-->
+
+        @if (currentStep() === 3) {
+            <div>
+                <div class="flex items-center gap-3 mb-3">
+                    <span class="flex items-center justify-center size-7 rounded-full bg-cyan-800 text-amber-100 font-semibold">
+                        5
+                    </span>
+
+                    <h2 class="font-semibold text-shadow-cyan-950 uppercase">
+                        Récapitulatif de la commande
+                    </h2>               
+                </div>
+
+                <div>
+                    <p>
+                        <strong>Client: </strong>
+                        {{ selectedClient?.firstname }} {{ selectedClient?.lastname }}
+                    </p>
+
+                    <p>
+                        <strong>Devise: </strong>
+                        {{ orderForm.get('currency')?.value }}
+                    </p>
+
+                    <p>
+                        <strong>Demande: </strong>
+                        {{ orderForm.get('description')?.value }}
+                    </p>
+                </div>
+
+                <div class="mt-5">
+                    <h3 class="font-semibold mb-3">Articles</h3>
+
+                    <p-table [value]="orderItems">
+                        <ng-template #header>
+                        <tr>
+                            <th>N°</th>
+                            <th>Produit</th>
+                            <th>Prix unitaire</th>
+                            <th>Quantité</th>
+                            <th>Total</th>
+                        </tr>
+                        </ng-template>
+
+                        <ng-template #body let-item let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{ rowIndex + 1 }}</td>
+                            <td>{{ item.supplierProduct.product.name }}</td>
+                            <td>{{ item.unitPrice }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.totalPrice }}</td>
+                        </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+
+                <div class="flex justify-center gap-5 mt-6">
+                    <button type="button"
+                        (click)="backward()"
+                        severity="secondary" pButton class="hover:bg-yellow-100">Retour</button>
+                    <button type="button"
+                        pButton
+                        >Continuer</button>
+                </div>
+            </div>
+        }
     </p-card>
 
     <div class="flex justify-center">
