@@ -9,15 +9,15 @@ import { environment } from '../../environments/environment';
 export class OrderService {
   httpClient = inject(HttpClient);
 
-  baseUrl = environment.apiUrl + 'order_items';
+  baseUrl = environment.apiUrl;
 
   getOrderProducts() {
-    return this.httpClient.get<OrderProduct[]>(this.baseUrl)
+    return this.httpClient.get<OrderProduct[]>(`${this.baseUrl}order_items`)
   }
 
   // TODO: implement the logic to get all informations needed (Montant payé, Reste à payer, Paiement)
 
   createOrder(order: Order) {
-    return this.httpClient.post<Order>(this.baseUrl, order);
+    return this.httpClient.post<Order>(`${this.baseUrl}order_items`, order);
   }
 }
