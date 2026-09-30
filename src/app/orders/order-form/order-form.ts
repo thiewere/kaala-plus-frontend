@@ -169,4 +169,10 @@ export class OrderForm {
 
     this.currentStep.set(3);
   }
+
+  get orderTotal(): number {
+    return this.orderItems.reduce(
+      (total, item) => total + item.totalPrice, 0
+    );
+  }
 }
