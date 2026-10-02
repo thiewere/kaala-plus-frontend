@@ -350,7 +350,17 @@
                         severity="secondary" pButton class="hover:bg-yellow-100">Retour</button>
                     <button type="button"
                         pButton
-                        >Continuer</button>
+                        severity="success"
+                        [disabled]="isSubmitting()"
+                        (click)="submitOrder()"
+                        >
+                        @if (isSubmitting()) {
+                            <i class="pi pi-spin pi-spinner"></i>
+                            <span>Création...</span>
+                        } @else {
+                            <span>Confirmer la commande</span>
+                        }
+                    </button>
                 </div>
             </div>
         }

@@ -49,6 +49,7 @@ export class OrderForm {
   
   currentStep = signal<1 | 2 | 3>(1);
 
+  isSubmitting = signal(false);
   showDialog: boolean = false;
 
   searchValue = '';
@@ -174,5 +175,36 @@ export class OrderForm {
     return this.orderItems.reduce(
       (total, item) => total + item.totalPrice, 0
     );
+  }
+
+  submitOrder() {
+    if (this.orderForm.invalid || this.orderItems.length === 0) return;
+
+    const formValue = this.orderForm.getRawValue();
+
+    const request: CreateCompleteOrderRequest = {
+      clientId: formValue.clientId,
+      currency: formValue.currency!,
+      description: formValue.description!,
+      items: this.orderItems.map(item => ({
+        supplierProductId: item.supplierProduct.id,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice
+      }))
+    };
+
+    this.isSubmitting.set(true);
+
+    this.orderService.createCompleteOrder(request).subscribe({
+      next: (response) => {
+        this.isSubmitting.set(false);
+        console.log('Commande créée: ', response)
+        this.router.navigate(['orders']);
+      },
+      error: (error) => {
+        this.isSubmitting.set(false);
+        console.error('Erreur lors de la création :', error);
+      }
+    })
   }
 }
