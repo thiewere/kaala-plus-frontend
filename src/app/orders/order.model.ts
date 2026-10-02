@@ -37,5 +37,28 @@ export interface Container {
     updatedAt: string
 }
 
+export interface CreateOrderItemRequest {
+    supplierProductId: number;
+    quantity: number;
+    unitPrice: number
+}
 
+export interface CreateCompleteOrderRequest {
+    clientId: number;
+    currency: string;
+    description: string,
+    items: CreateOrderItemRequest[]
+}
+
+export interface CreateOrderResponse {
+    id: number;
+    reference: string,
+    state: string
+}
+
+export interface CreateOrderRequest {
+    clientId: number;
+    currency?: string |  null;
+    description?: string | null,
+}
 
