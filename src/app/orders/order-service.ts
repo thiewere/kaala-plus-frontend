@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Order, OrderProduct } from './order.model';
+import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct } from './order.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -17,7 +17,11 @@ export class OrderService {
 
   // TODO: implement the logic to get all informations needed (Montant payé, Reste à payer, Paiement)
 
-  createOrder(order: Order) {
-    return this.httpClient.post<Order>(`${this.baseUrl}order_items`, order);
+  createOrder(request: CreateOrderRequest) {
+    return this.httpClient.post<CreateOrderRequest>(`${this.baseUrl}orders`, request);
+  }
+
+  createCompleteOrder(request: CreateCompleteOrderRequest) {
+    return this.httpClient.post<CreateOrderResponse>(`${this.baseUrl}orders/complete`, request);
   }
 }
