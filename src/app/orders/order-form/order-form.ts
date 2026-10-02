@@ -23,14 +23,17 @@ import { SelectModule } from 'primeng/select';
 import { SupplierProduct } from '../../suppliers/supplier.model';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { OrderProduct } from '../order.model';
+import { CreateCompleteOrderRequest, OrderProduct } from '../order.model';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-order-form',
   imports: [Header, AutoCompleteModule,
     CardModule, LabelModule, FormsModule, TableModule,
     ReactiveFormsModule, ButtonModule, DialogModule, Textarea, ClientForm, SelectModule,
-    InputNumberModule, InputTextModule],
+    InputNumberModule, InputTextModule, ToastModule],
   templateUrl: './order-form.html',
   styleUrl: './order-form.scss',
 })
@@ -41,6 +44,8 @@ export class OrderForm {
   orderService = inject(OrderService);
   productService = inject(ProductService);
   supplierService = inject(SupplierService);
+  router = inject(Router);
+  messageService = inject(MessageService);
 
   clients = toSignal(this.clientService.getClients());
   products = toSignal(this.productService.getProducts());
@@ -104,7 +109,22 @@ export class OrderForm {
     if(this.orderForm.invalid) return
 
     const order = this.orderForm.getRawValue();
-    console.log(order)
+    this.isSubmitting.set(true);
+    this.orderService.createOrder(order).subscribe({
+      next: (response) => {
+        this.isSubmitting.set(false);
+        this.messageService.add({
+          severity: "success",
+          summary: "Commande créée avec succès",
+          detail: `${response}`
+        });
+        console.log("Commande créée: ", response);
+      },
+      error: (err) => {
+        this.isSubmitting.set(false);
+        console.error("Erreur lors de la creation: ", err);
+      }
+    })
   }
 
   createAndComplete() {
