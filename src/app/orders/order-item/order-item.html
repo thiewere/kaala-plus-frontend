@@ -3,17 +3,17 @@
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span>{{ order().order.reference }}</span>
+        <span>{{ order().order!.reference }}</span>
     </div>
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span class="text-sm">{{ order().order.client.firstname + ' ' +  order().order.client.lastname}}</span>
+        <span class="text-sm">{{ order().order!.client.firstname + ' ' +  order().order!.client.lastname}}</span>
     </div>
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span class="text-sm">{{ order().order.createdAt}}</span>
+        <span class="text-sm">{{ order().order!.createdAt}}</span>
     </div>
 </td>
 <td>
@@ -37,7 +37,7 @@
     </div>
 </td>
 <td>
-    <span class="text-sm">{{ order().order.orderState }}</span>
+    <span class="text-sm">{{ order().order!.orderState }}</span>
 </td>
 
 <td>
