@@ -18,7 +18,7 @@ export class OrderService {
   // TODO: implement the logic to get all informations needed (Montant payé, Reste à payer, Paiement)
 
   createOrder(request: CreateOrderRequest) {
-    return this.httpClient.post<CreateOrderRequest>(`${this.baseUrl}orders`, request);
+    return this.httpClient.post<CreateOrderResponse>(`${this.baseUrl}orders`, request);
   }
 
   createCompleteOrder(request: CreateCompleteOrderRequest) {
