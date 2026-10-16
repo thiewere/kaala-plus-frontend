@@ -158,8 +158,10 @@ export class OrderForm {
   
   onClientCreated(client: Client) {
     this.selectedClient = client;
+    this.orderForm.patchValue({
+      clientId: this.selectedClient?.id
+    });
     this.showDialog = false;
-    console.log(this.selectedClient)
   }
 
   addItem() {
