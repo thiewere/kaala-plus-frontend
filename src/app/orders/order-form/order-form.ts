@@ -26,14 +26,13 @@ import { InputTextModule } from 'primeng/inputtext';
 import { CreateCompleteOrderRequest, OrderProduct } from '../order.model';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-order-form',
   imports: [Header, AutoCompleteModule,
     CardModule, LabelModule, FormsModule, TableModule,
     ReactiveFormsModule, ButtonModule, DialogModule, Textarea, ClientForm, SelectModule,
-    InputNumberModule, InputTextModule, ToastModule],
+    InputNumberModule, InputTextModule],
   templateUrl: './order-form.html',
   styleUrl: './order-form.scss',
 })
@@ -219,7 +218,11 @@ export class OrderForm {
     this.orderService.createCompleteOrder(request).subscribe({
       next: (response) => {
         this.isSubmitting.set(false);
-        console.log('Commande créée: ', response)
+        this.messageService.add({
+          severity: "success",
+          summary: "Commande créée avec succès",
+          detail: `Réference: ${response.reference}`
+        });
         this.router.navigate(['orders']);
       },
       error: (error) => {
