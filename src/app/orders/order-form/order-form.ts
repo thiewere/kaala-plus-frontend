@@ -117,6 +117,7 @@ export class OrderForm {
           summary: "Commande créée avec succès",
           detail: `Réference: ${response.reference}`
         });
+        void this.router.navigate([''])
       },
       error: (err) => {
         this.isSubmitting.set(false);
