@@ -116,9 +116,8 @@ export class OrderForm {
         this.messageService.add({
           severity: "success",
           summary: "Commande créée avec succès",
-          detail: `${response}`
+          detail: `Réference: ${response.reference}`
         });
-        console.log("Commande créée: ", response);
       },
       error: (err) => {
         this.isSubmitting.set(false);
