@@ -38,7 +38,9 @@
                     <th >Action</th>
             </tr>
         </ng-template>
-      
+        <ng-template #body let-order let-rowIndex="rowIndex">
+            <tr app-dashboard-item [value]="order" [index]="rowIndex" ></tr>
+        </ng-template>
     </p-table>
     </section>
 </div>
