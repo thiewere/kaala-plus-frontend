@@ -62,3 +62,11 @@ export interface CreateOrderRequest {
     description?: string | null,
 }
 
+export interface PendingOrderResponse {
+    id: number,
+    reference: string,
+    clientFirstname: string,
+    clientLastname: string,
+    description: string,
+    createdAt: string
+}
