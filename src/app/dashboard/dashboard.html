@@ -11,29 +11,34 @@
 
     <section class="bg-amber-100 rounded-lg border border-cyan-900 shadow-sm overflow-hidden">
 
-        <div class="p-6 border-b border-cyan-900">
-            <h2 class="text-lg font-semibold text-cyan-900">Commandes Récentes</h2>
+        <div class="flex justify-between items-center text-cyan-900 p-3 border-b border-cyan-900">
+            <div>
+                <div class="flex gap-3">
+                    <h2 class="text-lg font-semibold ">Commandes à compléter </h2>
+                    <span class="pl-3 pr-3 bg-cyan-900 rounded-xl text-sm flex items-center text-amber-200 ">{{pendingOrders()?.length}} en attente</span>
+                </div>
+                <span class="text-sm">Commandes enregistrées en attente de détails produits</span>
+            </div>
+            <span>
+                <svg data-p-icon="list-check" [size]="32"></svg>
+            </span>
         </div>
 
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-cyan-70">
-                        <th class="p-4 font-semibold border-b">#</th>
-                        <th class="p-4 font-semibold border-b">Référence</th>
-                        <th class="p-4 font-semibold border-b">Client</th>
-                        <th class="p-4 font-semibold border-b">Date</th>
-                        <th class="p-4 font-semibold border-b">Montant total</th>
-                        <th class="p-4 font-semibold border-b">Montant payé</th>
-                        <th class="p-4 font-semibold border-b">Reste à payer</th>
-                        <th class="p-4 font-semibold border-b">Paiement</th>
-                        <th class="p-4 font-semibold border-b">Statut</th>
-                        <th class="p-4 font-semibold border-b">Conteneur</th>
-                        <th class="p-4 font-semibold border-b">Action</th>
-                    </tr>
-                </thead>
-
-            </table>
-        </div>
+        <p-table [value]="pendingOrders()" 
+            stripedRows 
+            class="orders-table shadow-lg "
+            [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template #header>
+            <tr>
+                    <th >#</th>
+                    <th >Référence</th>
+                    <th >Client</th>
+                    <th >Description</th>
+                    <th >Date</th>
+                    <th >Action</th>
+            </tr>
+        </ng-template>
+      
+    </p-table>
     </section>
 </div>
