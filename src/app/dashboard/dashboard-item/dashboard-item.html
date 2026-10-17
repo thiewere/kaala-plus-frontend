@@ -1,0 +1,37 @@
+<td>
+    <span class="font-medium">{{ index() + 1 }}</span>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span>{{ value().reference }}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">{{ value().clientFirstname + ' ' +  value().clientLastname}}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">{{ value().description }}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <span class="text-sm">{{ value().createdAt }}</span>
+    </div>
+</td>
+<td>
+    <div class="flex items-center gap-2">
+        <button
+            pButton
+            type="button"
+            severity="primary"
+            size="small"
+            [outlined]="true"
+            >
+            <span pButtonLabel>Compléter</span>
+           <svg data-p-icon="arrow-up-right" [size]="16"></svg>
+        </button>
+    </div>
+</td>
