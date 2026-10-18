@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct, PendingOrderResponse } from './order.model';
+import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct, PendingOrderResponse, OrderDetailsResponse } from './order.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -27,5 +27,9 @@ export class OrderService {
 
   getPendingOrders() {
     return this.httpClient.get<PendingOrderResponse[]>(`${this.baseUrl}orders?state=INITIATED`);
+  }
+
+  getOrderById(id: number) {
+    return this.httpClient.get<OrderDetailsResponse>(`${this.baseUrl}orders/${id}`);
   }
 }
