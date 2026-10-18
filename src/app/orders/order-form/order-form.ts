@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Header } from "../../header/header";
 import { HeaderData } from '../../header/header-data.model';
 import { FormControl, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -36,7 +36,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './order-form.html',
   styleUrl: './order-form.scss',
 })
-export class OrderForm {
+export class OrderForm implements OnInit {
   protected readonly headerData = signal<HeaderData>({title: "Ajouter une commande", icon: "plus"})
 
   clientService = inject(ClientService);
@@ -87,6 +87,11 @@ export class OrderForm {
     return items?.filter((item) => item.product.id === product?.id)
   })
 
+  ngOnInit(): void {
+    if(this.isCompletionMode) {
+      this.loadOrder();
+    }
+  }
 
   loadOrder(): void {
     if(!this.orderId) return;
