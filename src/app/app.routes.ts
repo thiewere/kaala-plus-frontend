@@ -13,6 +13,7 @@ export const routes: Routes = [
     {path: '', component: Dashboard},
     {path: 'orders', component: OrderList},
     {path: 'orders/create', component: OrderForm},
+    {path: 'orders/:id/complete', component: OrderForm},
     {path: 'clients', component: ClientList},
     {path: 'clients/create', component: ClientForm},
     {path: 'products', component: ProductList},
