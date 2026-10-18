@@ -70,3 +70,11 @@ export interface PendingOrderResponse {
     description: string,
     createdAt: string
 }
+
+export interface OrderDetailsResponse {
+    id: number,
+    clientId: number,
+    currency: string,
+    description: string,
+    state: string
+}
