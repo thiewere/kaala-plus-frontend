@@ -24,7 +24,7 @@ import { SupplierProduct } from '../../suppliers/supplier.model';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { CreateCompleteOrderRequest, OrderProduct } from '../order.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -44,14 +44,19 @@ export class OrderForm {
   productService = inject(ProductService);
   supplierService = inject(SupplierService);
   router = inject(Router);
+  activeRoute = inject(ActivatedRoute);
   messageService = inject(MessageService);
 
   clients = toSignal(this.clientService.getClients());
   products = toSignal(this.productService.getProducts());
   supplierProducts = toSignal(this.supplierService.getSuppliers());
   
-  
-  currentStep = signal<1 | 2 | 3>(1);
+  orderId = this.activeRoute.snapshot.paramMap.get('id');
+  isCompletionMode = this.orderId !== null;
+
+  currentStep = signal<1 | 2 | 3>(
+    this.isCompletionMode ? 2 : 1
+  );
 
   isSubmitting = signal(false);
   showDialog: boolean = false;
@@ -81,6 +86,26 @@ export class OrderForm {
 
     return items?.filter((item) => item.product.id === product?.id)
   })
+
+
+  loadOrder(): void {
+    if(!this.orderId) return;
+
+    this.orderService.getOrderById(Number(this.orderId)).subscribe({
+      next: (order) => {
+        this.orderForm.patchValue({
+          clientId: order.clientId,
+          currency: order.currency,
+          description: order.description ?? ''
+        });
+        const clients = this.clients();
+        this.selectedClient = clients?.find((client) => order.clientId === client.id)
+      },
+      error: (error) => {
+        console.error('Erreur lors du chargement de la commande: ',  error);
+      }
+    });
+  }
 
   search(event: AutoCompleteCompleteEvent) {
   const query = event.query.toLowerCase();
