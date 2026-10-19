@@ -78,3 +78,7 @@ export interface OrderDetailsResponse {
     description: string,
     state: string
 }
+
+export interface CompleteExistingOrderRequest {
+    items: CreateOrderItemRequest[];
+}
