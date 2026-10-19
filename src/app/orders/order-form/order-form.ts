@@ -91,6 +91,8 @@ export class OrderForm implements OnInit {
   ngOnInit(): void {
     if(this.isCompletionMode) {
       this.loadOrder();
+      this.orderForm.controls.currency.disable()
+      this.orderForm.controls.description.disable()
     }
   }
 
