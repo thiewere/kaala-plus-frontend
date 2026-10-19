@@ -37,7 +37,6 @@ import { MessageService } from 'primeng/api';
   styleUrl: './order-form.scss',
 })
 export class OrderForm implements OnInit {
-  protected readonly headerData = signal<HeaderData>({title: "Ajouter une commande", icon: "plus"})
 
   clientService = inject(ClientService);
   orderService = inject(OrderService);
@@ -53,6 +52,8 @@ export class OrderForm implements OnInit {
   
   orderId = this.activeRoute.snapshot.paramMap.get('id');
   isCompletionMode = this.orderId !== null;
+  
+  protected readonly headerData = signal<HeaderData>({title: this.isCompletionMode ? "Compléter la commande" : "Ajouter une commande", icon: "plus"})
 
   currentStep = signal<1 | 2 | 3>(
     this.isCompletionMode ? 2 : 1
