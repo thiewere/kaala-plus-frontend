@@ -1,3 +1,11 @@
-<div>
-    <app-header [header]="headerData()" />
-</div>
+
+
+@if (dialogMode()) {
+    <ng-container>
+        
+    </ng-container>
+} @else {
+    <div>
+        <app-header [header]="headerData()" />
+    </div>
+}
