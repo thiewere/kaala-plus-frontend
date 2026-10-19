@@ -132,6 +132,7 @@ export class OrderForm implements OnInit {
   changeClient() {
     this.selectedClient = undefined;
     this.searchValue = '';
+    this.isCompletionMode = false;
   }
 
   submit() {
