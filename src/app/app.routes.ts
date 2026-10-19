@@ -8,6 +8,7 @@ import { PaymentList } from './payments/payment-list/payment-list';
 import { ExpenseList } from './expenses/expense-list/expense-list';
 import { ClientForm } from './clients/client-form/client-form';
 import { OrderForm } from './orders/order-form/order-form';
+import { ProductForm } from './products/product-form/product-form';
 
 export const routes: Routes = [
     {path: '', component: Dashboard},
@@ -17,6 +18,7 @@ export const routes: Routes = [
     {path: 'clients', component: ClientList},
     {path: 'clients/create', component: ClientForm},
     {path: 'products', component: ProductList},
+    {path: 'products/create', component: ProductForm},
     {path: 'suppliers', component: SupplierList},
     {path: 'payments', component: PaymentList},
     {path: 'expenses', component: ExpenseList},
