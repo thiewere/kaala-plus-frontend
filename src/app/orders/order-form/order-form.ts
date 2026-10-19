@@ -235,25 +235,31 @@ export class OrderForm implements OnInit {
 
     const formValue = this.orderForm.getRawValue();
 
+    const items = this.orderItems.map(item => ({
+        supplierProductId: item.supplierProduct.id,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice
+      }));
+
     const request: CreateCompleteOrderRequest = {
       clientId: formValue.clientId,
       currency: formValue.currency!,
       description: formValue.description!,
-      items: this.orderItems.map(item => ({
-        supplierProductId: item.supplierProduct.id,
-        quantity: item.quantity,
-        unitPrice: item.unitPrice
-      }))
+      items
     };
+
+    const orderRequest = this.isCompletionMode && this.orderId 
+      ? this.orderService.completeExistingOrder(Number(this.orderId), {items})
+      : this.orderService.createCompleteOrder(request);
 
     this.isSubmitting.set(true);
 
-    this.orderService.createCompleteOrder(request).subscribe({
+    orderRequest.subscribe({
       next: (response) => {
         this.isSubmitting.set(false);
         this.messageService.add({
           severity: "success",
-          summary: "Commande créée avec succès",
+          summary: this.isCompletionMode ? "Commande complétée avec succès" : "Commande créée avec succès",
           detail: `Réference: ${response.reference}`
         });
         this.router.navigate(['orders']);
