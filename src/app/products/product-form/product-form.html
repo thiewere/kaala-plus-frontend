@@ -1,11 +1,81 @@
+<ng-template #supplierProductFormTemplate>
+    <form [formGroup]="form">
 
+            <h2 class="text-lg font-semibold text-slate-800 mb-5">
+                Information du produit
+            </h2>
+
+            <div class="flex flex-wrap gap-6 mb-6">
+                <div class="flex items-center gap-2">
+                    <p-radiobutton
+                        inputId="newProduct"
+                        name="productMode"
+                        value="new"
+                        formControlName="productMode"
+                    />
+                    <label for="newProduct" class="cursor-pointer">Nouveau produit</label>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <p-radiobutton
+                        inputId="existingProduct"
+                        name="productMode"
+                        value="existing"
+                        formControlName="productMode"
+                    />
+                    <label for="existingProduct" class="cursor-pointer" >Produit existant</label>
+                </div>
+            </div>
+
+            @if (form.controls.productMode.value === 'new') {
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div class="flex flex-col gap-2">
+                        <label for="productName" class="font-medium">Nom du produit <span class="text-red-500">*</span></label>
+                        <input pInputText
+                            id="productName"
+                            formControlName="name"
+                            placeholder="Ex. Machine à laver X100 8kg">
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label for="productBrand" class="font-medium">Marque</label>
+                        <input pInputText
+                            id="productBrand"
+                            formControlName="brand"
+                            placeholder="Ex. LG">
+                    </div>
+
+                    <div class="flex flex-col gap-2 md:col-span-2">
+                        <label for="productDescription" class="font-medium">Description</label>
+                        <textarea pInputText
+                            id="productDescription"
+                            formControlName="description"
+                            rows="3"
+                            placeholder="Description du produit ...">
+                        </textarea>
+                    </div>
+                </div>
+            } @else {
+                <div>
+                   <label for="" class="font-medium">Sélectionner un produit existant</label> 
+                </div>
+            }
+    </form>
+</ng-template>
 
 @if (dialogMode()) {
-    <ng-container>
+    <ng-container
+        *ngTemplateOutlet="supplierProductFormTemplate">
         
     </ng-container>
 } @else {
     <div>
         <app-header [header]="headerData()" />
+        <p-card>
+            <ng-template
+             *ngTemplateOutlet="supplierProductFormTemplate">
+
+            </ng-template>
+        </p-card>
     </div>
 }
