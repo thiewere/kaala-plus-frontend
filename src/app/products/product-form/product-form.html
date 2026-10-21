@@ -98,6 +98,37 @@
                     </div>
                 }
             </div>
+
+            @if (form.controls.supplierMode.value === 'new') {
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                   <div class="flex flex-col gap-2">
+                        <label for="supplierName" class="cursor-pointer font-medium">Nom du Fournisseur <span class="text-red-500">*</span></label>
+                        <input pInputText
+                            id="supplierName"
+                            formControlName="supplierName"
+                            placeholder="Ex. Guangzhou electronics Ltd"
+                        >
+                   </div>
+
+                   <div class="flex flex-col gap-2">
+                        <label for="supplierPhone" class="cursor-pointer font-medium">Téléphone <span class="text-red-500">*</span></label>
+                        <input pInputText
+                            id="supplierPhone"
+                            formControlName="supplierPhone"
+                            placeholder="Ex. +8613800000000"
+                        >
+                   </div>
+
+                   <div class="flex flex-col gap-2">
+                        <label for="supplierAddress" class="cursor-pointer font-medium">Adresse</label>
+                        <input pInputText
+                            id="supplierAddress"
+                            formControlName="supplierAddress"
+                            placeholder="Ex. Guangzhou, China"
+                        >
+                   </div>
+                </div>
+            }      
         </section>
     </form>
 </ng-template>
