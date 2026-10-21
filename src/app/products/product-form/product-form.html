@@ -18,12 +18,12 @@
 
                 <div class="flex items-center gap-2">
                     <p-radiobutton
-                        inputId="existingProduct"
+                        inputId="existingProductRadio"
                         name="productMode"
                         value="existing"
                         formControlName="productMode"
                     />
-                    <label for="existingProduct" class="cursor-pointer" >Produit existant</label>
+                    <label for="existingProductRadio" class="cursor-pointer" >Produit existant</label>
                 </div>
             </div>
 
@@ -56,8 +56,24 @@
                     </div>
                 </div>
             } @else {
-                <div>
-                   <label for="" class="font-medium">Sélectionner un produit existant</label> 
+                <div class="flex flex-col gap-2">
+                   <label for="existingProduct" class="cursor-pointer font-medium">
+                        Sélectionner un produit existant
+                        <span class="text-red-500">*</span>
+                    </label> 
+
+                   <p-autocomplete
+                        inputId="existingProduct"
+                        [suggestions]="filteredProducts()"
+                        (completeMethod)="searchProduct($event)"
+                        (onSelect)="onProductSelect($event)"
+                        (onClear)="onProductFieldClear()"
+                        optionLabel="name"
+                        [dropdown]="true"
+                        [forceSelection]="true"
+                        placeholder="Rechercher un produit..."
+                        inputStyleClass="w-full"
+                        />
                 </div>
             }
     </form>
