@@ -37,7 +37,7 @@ export class ProductForm {
     brand: new FormControl(''),
     description: new FormControl(''),
 
-    supplierMode: new FormControl<'none' | 'existing' | 'new'>('none', {nonNullable: true}),
+    supplierMode: new FormControl<'existing' | 'new'>('existing', {nonNullable: true}),
     supplierId: new FormControl<number | null>(null),
     supplierName: new FormControl(''),
     supplierPhone: new FormControl(''),
