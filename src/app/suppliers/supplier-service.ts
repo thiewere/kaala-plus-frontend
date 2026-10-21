@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { SupplierProduct } from './supplier.model';
+import { Supplier, SupplierProduct } from './supplier.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +9,13 @@ import { SupplierProduct } from './supplier.model';
 export class SupplierService {
   httpClient = inject(HttpClient);
 
-  baseUrl = environment.apiUrl + 'supplier_products';
+  baseUrl = environment.apiUrl;
 
   getSuppliers() {
-    return this.httpClient.get<SupplierProduct[]>(this.baseUrl);
+    return this.httpClient.get<SupplierProduct[]>(`${this.baseUrl}supplier_products`);
+  }
+
+  getOnlySuppliers() {
+    return this.httpClient.get<Supplier[]>(`${this.baseUrl}suppliers`);
   }
 }
