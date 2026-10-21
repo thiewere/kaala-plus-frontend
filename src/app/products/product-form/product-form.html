@@ -64,6 +64,7 @@
 
                    <p-autocomplete
                         inputId="existingProduct"
+                        formControlName="selectedProduct"
                         [suggestions]="filteredProducts()"
                         (completeMethod)="searchProduct($event)"
                         (onSelect)="onProductSelect($event)"
