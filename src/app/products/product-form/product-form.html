@@ -77,6 +77,28 @@
                 </div>
             }
         </section>
+
+        <section class="rounded-xl border border-stone-200 p-6">
+            <h2 class="text-lg font-semibold text-cyan-900 mb-5">
+                Information du fournisseur
+            </h2>
+
+            <div class="flex flex-wrap gap-6 mb-6">
+                @for (mode of modeSuppliers; track mode.value) {
+                    <div class="flex items-center gap-2">
+                        <p-radiobutton 
+                            [inputId]="'supplier-' + mode.value"
+                            name="supplierMode"
+                            [value]="mode.value"
+                            formControlName="supplierMode"
+                        />
+                        <label [for]="'supplier-' + mode.value" class="cursor-pointer">
+                            {{ mode.label }}
+                        </label>
+                    </div>
+                }
+            </div>
+        </section>
     </form>
 </ng-template>
 

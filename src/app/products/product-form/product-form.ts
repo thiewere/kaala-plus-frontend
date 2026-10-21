@@ -30,6 +30,11 @@ export class ProductForm {
   products = signal<Product[]>([]);
   filteredProducts = signal<Product[]>([]);
 
+  modeSuppliers = [
+    { value: 'existing', label: 'Fournisseur existant '},
+    { value: 'new', label: 'Nouveau Fournisseur'}
+  ]
+
   form = new FormGroup({
     productMode: new FormControl<'new' | 'existing'>('new', {nonNullable: true}),
     productId: new FormControl<number | null>(null),
