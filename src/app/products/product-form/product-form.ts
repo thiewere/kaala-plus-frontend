@@ -10,6 +10,8 @@ import { TextareaModule } from 'primeng/textarea';
 import { ProductService } from '../product-service';
 import { Product } from '../product.model';
 import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
+import { SupplierService } from '../../suppliers/supplier-service';
+import { Supplier } from '../../suppliers/supplier.model';
 
 
 @Component({
@@ -22,6 +24,7 @@ import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent 
 export class ProductForm {
 
   productService = inject(ProductService);
+  supplierService = inject(SupplierService);
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Produit', icon: 'box'});
 
@@ -34,6 +37,8 @@ export class ProductForm {
     { value: 'existing', label: 'Fournisseur existant '},
     { value: 'new', label: 'Nouveau Fournisseur'}
   ]
+  suppliers = signal<Supplier[]>([]);
+  filteredSuppliers = signal<Supplier[]>([]);
 
   form = new FormGroup({
     productMode: new FormControl<'new' | 'existing'>('new', {nonNullable: true}),
@@ -51,12 +56,17 @@ export class ProductForm {
     unitPrice: new FormControl<number | null>(null),
     currency: new FormControl('USD'),
 
-    selectedProduct: new FormControl<Product | null>(null)
+    selectedProduct: new FormControl<Product | null>(null),
+    selectedSupplier: new FormControl<Supplier | null>(null)
   });
 
   constructor() {
     this.productService.getProducts().subscribe({
       next: products => this.products.set(products)
+    });
+
+    this.supplierService.getOnlySuppliers().subscribe({
+      next: suppliers => this.suppliers.set(suppliers)
     });
   }
 
@@ -75,5 +85,22 @@ export class ProductForm {
 
   onProductFieldClear() {
     this.form.controls.productId.setValue(null);
+  }
+
+  searchSupplier(event: AutoCompleteCompleteEvent) {
+    const query = event.query.toLowerCase().trim();
+
+    this.filteredSuppliers.set(
+      this.suppliers().filter(supplier => supplier.name.toLowerCase().includes(query))
+    );
+  }
+
+  onSupplierSelect(event: AutoCompleteSelectEvent) {
+    const supplier: Supplier = event.value;
+    this.form.controls.supplierId.setValue(supplier.id);
+  }
+
+   onSupplierFieldClear() {
+    this.form.controls.supplierId.setValue(null);
   }
 }

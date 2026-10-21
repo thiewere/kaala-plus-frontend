@@ -129,7 +129,28 @@
                         >
                    </div>
                 </div>
-            }      
+            }@else {
+                <div class="flex flex-col gap-2">
+                   <label for="existingSupplier" class="cursor-pointer font-medium">
+                        Sélectionner un fournisseur
+                        <span class="text-red-500">*</span>
+                    </label> 
+
+                   <p-autocomplete
+                        inputId="existingSupplier"
+                        formControlName="selectedSupplier"
+                        [suggestions]="filteredSuppliers()"
+                        (completeMethod)="searchSupplier($event)"
+                        (onSelect)="onSupplierSelect($event)"
+                        (onClear)="onSupplierFieldClear()"
+                        optionLabel="name"
+                        [dropdown]="true"
+                        [forceSelection]="true"
+                        placeholder="Rechercher un fournisseur..."
+                        inputStyleClass="w-full"
+                        />
+                </div>
+            }   
         </section>
     </form>
 </ng-template>
