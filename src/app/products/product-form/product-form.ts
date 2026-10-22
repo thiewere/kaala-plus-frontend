@@ -78,12 +78,12 @@ export class ProductForm {
     this.form.controls.productMode.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(
-      () => this.updateValidators());
+      () => this.onProductModeChange());
 
     this.form.controls.supplierMode.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(
-      () => this.updateValidators());
+      () => this.onSupplierModeChange());
     
     this.updateValidators();
   }
@@ -158,5 +158,35 @@ export class ProductForm {
       control.updateValueAndValidity({ emitEvent: false })
     );
 
+  }
+
+  private onProductModeChange():void {
+    const controls = this.form.controls;
+
+    if(controls.productMode.value === 'new') {
+      controls.productId.setValue(null);
+      controls.selectedProduct.setValue(null);
+    } else {
+      controls.name.reset();
+      controls.brand.reset();
+      controls.description.reset();
+    }
+
+    this.updateValidators();
+  }
+
+  private onSupplierModeChange():void {
+    const controls = this.form.controls;
+
+    if(controls.supplierMode.value === 'new') {
+      controls.supplierId.setValue(null);
+      controls.selectedSupplier.setValue(null);
+    } else {
+      controls.supplierName.reset();
+      controls.supplierPhone.reset();
+      controls.supplierAddress.reset();
+    }
+
+    this.updateValidators();
   }
 }
