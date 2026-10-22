@@ -53,7 +53,7 @@ export class ProductForm {
     supplierPhone: new FormControl(''),
     supplierAddress: new FormControl(''),
 
-    unitPrice: new FormControl<number | null>(null),
+    unitPrice: new FormControl<number>(0, {validators: [Validators.required, Validators.min(0.01)], nonNullable: true}),
     currency: new FormControl('USD'),
 
     selectedProduct: new FormControl<Product | null>(null),
