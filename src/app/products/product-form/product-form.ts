@@ -14,6 +14,7 @@ import { SupplierService } from '../../suppliers/supplier-service';
 import { Supplier } from '../../suppliers/supplier.model';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Select } from 'primeng/select';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -72,6 +73,18 @@ export class ProductForm {
     this.supplierService.getOnlySuppliers().subscribe({
       next: suppliers => this.suppliers.set(suppliers)
     });
+
+    this.form.controls.productMode.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(
+      () => this.updateValidators());
+
+    this.form.controls.supplierMode.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(
+      () => this.updateValidators());
+    
+    this.updateValidators();
   }
 
   searchProduct(event: AutoCompleteCompleteEvent) {
