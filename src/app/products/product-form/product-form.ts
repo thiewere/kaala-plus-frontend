@@ -36,6 +36,7 @@ export class ProductForm {
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Produit', icon: 'box'});
 
   dialogMode = input(false);
+  isSubmitting = signal(false);
 
   products = signal<Product[]>([]);
   filteredProducts = signal<Product[]>([]);
@@ -251,13 +252,16 @@ export class ProductForm {
       const request: CreateSupplierProductRequest = {productId, supplierId, unitPrice, currency};
       supplierProductRequest = this.supplierService.createSupplierProduct(request);
     }
-
+  
+    this.isSubmitting.set(true);
     supplierProductRequest.subscribe({
       next: () => {
+        this.form.reset();
         this.messageService.add({
           severity:'success', 
           summary: 'Succès', 
           detail: 'Produit fournisseur créé avec succès'});
+        this.isSubmitting.set(false);
       },
       error: (error) => {
         this.messageService.add({
@@ -265,6 +269,7 @@ export class ProductForm {
           summary: 'Erreur', 
           detail: error.error?.message || 'Une erreur s\'est produite lors de la création du produit fournisseur'
         });
+        this.isSubmitting.set(false);
       }
     });
 
