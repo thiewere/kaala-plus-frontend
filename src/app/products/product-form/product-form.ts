@@ -17,6 +17,7 @@ import { Select } from 'primeng/select';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonDirective } from 'primeng/button';
 import { Observable } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class ProductForm {
 
   productService = inject(ProductService);
   supplierService = inject(SupplierService);
+  messageService = inject(MessageService);
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Produit', icon: 'box'});
 
@@ -251,11 +253,18 @@ export class ProductForm {
     }
 
     supplierProductRequest.subscribe({
-      next: (response) => {
-        console.log('Supplier product created successfully:', response);
+      next: () => {
+        this.messageService.add({
+          severity:'success', 
+          summary: 'Succès', 
+          detail: 'Produit fournisseur créé avec succès'});
       },
       error: (error) => {
-        console.error('Error creating supplier product:', error);
+        this.messageService.add({
+          severity:'error', 
+          summary: 'Erreur', 
+          detail: error.error?.message || 'Une erreur s\'est produite lors de la création du produit fournisseur'
+        });
       }
     });
 
