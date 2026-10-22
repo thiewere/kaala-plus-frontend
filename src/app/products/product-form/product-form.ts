@@ -15,12 +15,13 @@ import { Supplier } from '../../suppliers/supplier.model';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { Select } from 'primeng/select';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ButtonDirective } from 'primeng/button';
 
 
 @Component({
   selector: 'app-product-form',
   imports: [Header, ReactiveFormsModule, NgTemplateOutlet, Card, RadioButton,
-    InputText, TextareaModule, AutoCompleteModule, InputNumberModule, Select],
+    InputText, TextareaModule, AutoCompleteModule, InputNumberModule, Select, ButtonDirective],
   templateUrl: './product-form.html',
   styleUrl: './product-form.scss',
 })
