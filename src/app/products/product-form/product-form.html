@@ -35,6 +35,7 @@
                             id="productName"
                             formControlName="name"
                             placeholder="Ex. Machine à laver X100 8kg">
+                        <small class="invalid-feedback">Le nom du produit est requis!</small>
                     </div>
 
                     <div class="flex flex-col gap-2">
@@ -75,6 +76,7 @@
                         placeholder="Rechercher un produit..."
                         inputStyleClass="w-full"
                         />
+                    <small class="invalid-feedback">Le choix du produit est requis!</small>
                 </div>
             }
         </section>
@@ -109,6 +111,7 @@
                             formControlName="supplierName"
                             placeholder="Ex. Guangzhou electronics Ltd"
                         >
+                        <small class="invalid-feedback">Le nom de l'entreprise fournisseur est requis!</small>
                    </div>
 
                    <div class="flex flex-col gap-2">
@@ -118,6 +121,7 @@
                             formControlName="supplierPhone"
                             placeholder="Ex. +8613800000000"
                         >
+                        <small class="invalid-feedback">Le numéro de téléphone du fournisseur est requis!</small>
                    </div>
 
                    <div class="flex flex-col gap-2">
@@ -162,6 +166,7 @@
                             [minFractionDigits]="2"
                             [maxFractionDigits]="2"
                         />
+                        <small class="invalid-feedback">Le prix unitaire doit être au moins 0.01!</small>
                    </div>
 
                    <div class="flex flex-col gap-2">
@@ -171,6 +176,7 @@
                             formControlName="currency"
                             [options]="currencies"
                         />
+                        <small class="invalid-feedback">La devise est requise!</small>
                    </div>
                 </div>
         </section>
