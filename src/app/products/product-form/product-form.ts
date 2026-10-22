@@ -16,8 +16,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { Select } from 'primeng/select';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonDirective } from 'primeng/button';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class ProductForm {
   productService = inject(ProductService);
   supplierService = inject(SupplierService);
   messageService = inject(MessageService);
+  router = inject(Router);
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Produit', icon: 'box'});
 
@@ -254,24 +256,24 @@ export class ProductForm {
     }
   
     this.isSubmitting.set(true);
-    supplierProductRequest.subscribe({
-      next: () => {
-        this.form.reset();
-        this.messageService.add({
-          severity:'success', 
-          summary: 'Succès', 
-          detail: 'Produit fournisseur créé avec succès'});
-        this.isSubmitting.set(false);
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity:'error', 
-          summary: 'Erreur', 
-          detail: error.error?.message || 'Une erreur s\'est produite lors de la création du produit fournisseur'
-        });
-        this.isSubmitting.set(false);
-      }
-    });
+    supplierProductRequest
+      .pipe(finalize(() => this.isSubmitting.set(false)))
+      .subscribe({
+        next: () => {
+          this.messageService.add({
+            severity:'success', 
+            summary: 'Succès', 
+            detail: 'Produit fournisseur créé avec succès'});
+          this.router.navigate(['/products']);
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity:'error', 
+            summary: 'Erreur', 
+            detail: error.error?.message || 'Une erreur s\'est produite lors de la création du produit fournisseur'
+          });
+        }
+      });
 
   }
 }
