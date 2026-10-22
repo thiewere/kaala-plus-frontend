@@ -55,12 +55,12 @@ export class ProductForm {
 
     supplierMode: new FormControl<'existing' | 'new'>('existing', {nonNullable: true}),
     supplierId: new FormControl<number | null>(null),
-    supplierName: new FormControl(''),
-    supplierPhone: new FormControl(''),
+    supplierName: new FormControl('', {validators: [Validators.required], nonNullable: true}),
+    supplierPhone: new FormControl('', {validators: [Validators.required], nonNullable: true}),
     supplierAddress: new FormControl(''),
 
     unitPrice: new FormControl<number>(0, {validators: [Validators.required, Validators.min(0.01)], nonNullable: true}),
-    currency: new FormControl('USD'),
+    currency: new FormControl('USD', {validators: [Validators.required], nonNullable: true}),
 
     selectedProduct: new FormControl<Product | null>(null),
     selectedSupplier: new FormControl<Supplier | null>(null)
