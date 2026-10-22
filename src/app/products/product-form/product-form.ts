@@ -8,7 +8,7 @@ import { RadioButton } from 'primeng/radiobutton';
 import { InputText } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
 import { ProductService } from '../product-service';
-import { Product } from '../product.model';
+import { CreateProductAndSupplierRequest, CreateProductWithSupplierRequest, CreateSupplierProductRequest, CreateSupplierProductResponse, CreateSupplierWithProductRequest, Product } from '../product.model';
 import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 import { SupplierService } from '../../suppliers/supplier-service';
 import { Supplier } from '../../suppliers/supplier.model';
@@ -16,6 +16,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { Select } from 'primeng/select';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ButtonDirective } from 'primeng/button';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -188,5 +189,75 @@ export class ProductForm {
     }
 
     this.updateValidators();
+  }
+
+  onSubmit(): void {
+    this.updateValidators();
+
+    this.form.markAllAsTouched();
+    if (this.form.invalid) return;
+
+    const {
+      productMode,
+      supplierMode,
+      productId,
+      supplierId,
+      name,
+      brand,
+      description,
+      supplierName,
+      supplierPhone,
+      supplierAddress,
+      unitPrice,
+      currency
+    } = this.form.getRawValue();
+
+    let supplierProductRequest: Observable<CreateSupplierProductResponse>;
+
+    if (productMode === 'new' && supplierMode === 'new') {
+      const request: CreateProductAndSupplierRequest = {name, brand, description, supplierName, 
+        supplierPhone, supplierAddress, unitPrice, currency};
+      supplierProductRequest = this.supplierService.createProductAndSupplier(request);
+    }else if (productMode === 'new' && supplierMode === 'existing') {
+      if(supplierId === null) {
+        this.form.controls.selectedSupplier.markAllAsTouched();
+        return;
+      };
+      const request: CreateProductWithSupplierRequest = {name, brand, description, supplierId, 
+       unitPrice, currency};
+      supplierProductRequest = this.supplierService.createProductWithSupplier(request);
+    }else if (productMode === 'existing' && supplierMode === 'new') {
+      if(productId === null) {
+        this.form.controls.selectedProduct.markAllAsTouched();
+        return;
+      }
+      const request: CreateSupplierWithProductRequest = {productId, supplierName, supplierPhone, supplierAddress, 
+       unitPrice, currency};
+      
+      supplierProductRequest = this.supplierService.createSupplierWithProduct(request);
+    }else {
+      if(productId === null || supplierId === null) {
+        if (productId === null) {
+          this.form.controls.selectedProduct.markAsTouched();
+        }
+
+        if (supplierId === null) {
+          this.form.controls.selectedSupplier.markAsTouched();
+        }
+        return;
+      }
+      const request: CreateSupplierProductRequest = {productId, supplierId, unitPrice, currency};
+      supplierProductRequest = this.supplierService.createSupplierProduct(request);
+    }
+
+    supplierProductRequest.subscribe({
+      next: (response) => {
+        console.log('Supplier product created successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error creating supplier product:', error);
+      }
+    });
+
   }
 }
