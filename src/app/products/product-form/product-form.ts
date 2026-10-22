@@ -107,4 +107,42 @@ export class ProductForm {
    onSupplierFieldClear() {
     this.form.controls.supplierId.setValue(null);
   }
+
+  private updateValidators(): void {
+    const controls = this.form.controls;
+
+    const isNewProduct = controls.productMode.value === "new";
+    const isNewSupplier = controls.supplierMode.value === "new";
+
+    controls.name.setValidators(
+      isNewProduct ? [Validators.required] : []
+    );
+
+    controls.selectedProduct.setValidators(
+      isNewProduct ? [] : [Validators.required]
+    );
+
+    controls.supplierName.setValidators(
+      isNewSupplier ? [Validators.required] : []
+    );
+
+    controls.supplierPhone.setValidators(
+      isNewSupplier ? [Validators.required] : []
+    );
+
+    controls.selectedSupplier.setValidators(
+      isNewSupplier ? [] : [Validators.required]
+    );
+
+    [
+      controls.name,
+      controls.selectedProduct,
+      controls.supplierName,
+      controls.supplierPhone,
+      controls.selectedSupplier
+    ].forEach(control =>
+      control.updateValueAndValidity({ emitEvent: false })
+    );
+
+  }
 }
