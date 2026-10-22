@@ -17,7 +17,7 @@ import { ProductItem } from "../product-item/product-item";
 export class ProductList {
   protected readonly headerData = signal<HeaderData>({title: 'Liste des Produits', icon: 'box'});
 
-  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par le nom", label: "Nouveau Produit"})
+  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par le nom", label: "Nouveau Produit", link: 'create'})
 
   productService = inject(ProductService);
 
