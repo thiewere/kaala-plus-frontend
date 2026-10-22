@@ -1,5 +1,5 @@
 <ng-template #supplierProductFormTemplate>
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <section class="rounded-xl border border-stone-200 p-6 mb-2">
             <h2 class="text-lg font-semibold text-slate-800 mb-5">
                 Information du produit
