@@ -150,7 +150,29 @@
                         inputStyleClass="w-full"
                         />
                 </div>
-            }   
+            }  
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                   <div class="flex flex-col gap-2">
+                        <label for="supplierName" class="cursor-pointer font-medium">Prix unitaire <span class="text-red-500">*</span></label>
+                        <p-inputnumber
+                            id="unitPrice"
+                            formControlName="unitPrice"
+                            [min]="0"
+                            [minFractionDigits]="2"
+                            [maxFractionDigits]="2"
+                        />
+                   </div>
+
+                   <div class="flex flex-col gap-2">
+                        <label for="supplierPhone" class="cursor-pointer font-medium">Devise <span class="text-red-500">*</span></label>
+                        <p-select
+                            inputId="currency"
+                            formControlName="currency"
+                            [options]="currencies"
+                        />
+                   </div>
+                </div>
         </section>
     </form>
 </ng-template>

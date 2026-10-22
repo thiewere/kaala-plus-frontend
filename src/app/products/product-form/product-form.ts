@@ -12,12 +12,14 @@ import { Product } from '../product.model';
 import { AutoCompleteCompleteEvent, AutoCompleteModule, AutoCompleteSelectEvent } from 'primeng/autocomplete';
 import { SupplierService } from '../../suppliers/supplier-service';
 import { Supplier } from '../../suppliers/supplier.model';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { Select } from 'primeng/select';
 
 
 @Component({
   selector: 'app-product-form',
-  imports: [Header, ReactiveFormsModule, NgTemplateOutlet, Card, RadioButton, 
-    InputText, TextareaModule, AutoCompleteModule],
+  imports: [Header, ReactiveFormsModule, NgTemplateOutlet, Card, RadioButton,
+    InputText, TextareaModule, AutoCompleteModule, InputNumberModule, Select],
   templateUrl: './product-form.html',
   styleUrl: './product-form.scss',
 })
@@ -39,6 +41,8 @@ export class ProductForm {
   ]
   suppliers = signal<Supplier[]>([]);
   filteredSuppliers = signal<Supplier[]>([]);
+
+  currencies = ['USD', 'RMB', 'GNF'];
 
   form = new FormGroup({
     productMode: new FormControl<'new' | 'existing'>('new', {nonNullable: true}),
