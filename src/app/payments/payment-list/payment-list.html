@@ -5,12 +5,14 @@
 
     <p-table [value]="payments()" stripedRows class="orders-table shadow-lg rounded-md overflow-hidden mx-auto" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }">
         <ng-template #header >
-            <tr class="font-semibold text-xl">
+            <tr class="font-semibold ">
                     <th>#</th>
                     <th>Order</th>
                     <th>Client</th>
-                    <th>Payment Type</th>
                     <th>Amount</th>
+                    <th>Exchange Rate</th>
+                    <th>Converted Amount</th>
+                    <th>Payment Type</th>
                     <th>Date</th>
                     <th>Note</th>
                 </tr>
