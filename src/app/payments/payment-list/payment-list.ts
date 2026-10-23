@@ -16,7 +16,7 @@ import { PaymentItem } from "../payment-item/payment-item";
 })
 export class PaymentList {
   protected readonly headerData = signal<HeaderData>({title: "Liste des Paiements", icon: "credit-card"})
-  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par type de paiement", label: "Nouveau Paiement"})
+  protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par type de paiement", label: "Nouveau Paiement", link: "create"})
 
   paymentService = inject(PaymentService);
   
