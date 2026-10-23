@@ -1,10 +1,10 @@
 import { Component, input } from '@angular/core';
 import { Payment } from '../payment.model';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'tr[app-payment-item]',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, DecimalPipe],
   templateUrl: './payment-item.html',
   styleUrl: './payment-item.scss',
 })
