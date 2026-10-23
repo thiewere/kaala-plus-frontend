@@ -1,13 +1,14 @@
-import { Currency, Order } from "../orders/order.model";
-
 export interface Payment {
-    id: number,
-    order: Order,
-    currency: Currency,
-    amount: number,
-    paymentDate: string,
-    paymentType: string,
-    note: string,
-    createdAt: string,
-    updatedAt: string
+    id: number;
+    orderReference: string;
+    amount: number;
+    currency: string;
+    exchangeRate: number;
+    convertedAmount: number;
+    paymentType: 'PARTIAL' | 'FINAL';
+    paymentDate: string;
+    note: string | null;
+    clientFirstname: string;
+    clientLastname: string;
+    orderCurrency: string;
 }
