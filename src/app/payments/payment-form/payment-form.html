@@ -1,1 +1,21 @@
-<p>payment-form works!</p>
+<ng-template #paymentFormTemplate>
+    <form >
+       
+    </form>
+</ng-template>
+
+@if (dialogMode()) {
+    <ng-container
+        *ngTemplateOutlet="paymentFormTemplate">
+    </ng-container>
+} @else {
+    <div>
+        <app-header [header]="headerData()" />
+
+        <p-card class="max-w-300 mx-auto  shadow-xl">
+            <ng-container
+                *ngTemplateOutlet="paymentFormTemplate">
+            </ng-container>
+        </p-card>
+    </div>
+}
