@@ -12,3 +12,12 @@ export interface Payment {
     clientLastname: string;
     orderCurrency: string;
 }
+
+export interface CreatePaymentRequest {
+    orderReference: string;
+    amount:         number;
+    currencyId:     number;
+    exchangeRate:   number;
+    paymentDate:    string;
+    note:           string;
+}
