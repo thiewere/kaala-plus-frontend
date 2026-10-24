@@ -97,7 +97,7 @@
                 type="submit" 
                 label="Créer" 
                 pButton
-                [disabled]="!isReadyToSubmit()"
+                [disabled]="paymentForm.invalid"
                 >Enregistrer</button>
         </div>
     </form>
