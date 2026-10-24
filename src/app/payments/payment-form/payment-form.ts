@@ -1,5 +1,5 @@
-import { NgTemplateOutlet } from '@angular/common';
-import { Component, input, signal } from '@angular/core';
+import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
+import { Component, inject, input, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { Header } from '../../header/header';
 import { HeaderData } from '../../header/header-data.model';
@@ -11,23 +11,29 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { OrderService } from '../../orders/order-service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-payment-form',
   imports: [NgTemplateOutlet, CardModule, Header, SelectModule, InputTextModule, 
-    TextareaModule, ButtonModule, InputNumberModule, DatePickerModule, InputMaskModule],
+    TextareaModule, ButtonModule, InputNumberModule, DatePickerModule, InputMaskModule, DecimalPipe],
   templateUrl: './payment-form.html',
   styleUrl: './payment-form.scss',
 })
 export class PaymentForm {
 
+  orderServer = inject(OrderService);
+
   dialogMode = input(false);
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Paiement', icon: 'money-bill'});
 
-  isOrderSelected = signal(false);
+  availableOrders = toSignal(this.orderServer.getOrdersForPayment());
 
-  form = new FormGroup({
+  isOrderSelected = signal(true);
+
+  paymentForm = new FormGroup({
     orderReference: new FormControl('', {validators: [Validators.required], nonNullable: true}),
     amount: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
     currencyId: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
