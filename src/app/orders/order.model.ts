@@ -82,3 +82,12 @@ export interface OrderDetailsResponse {
 export interface CompleteExistingOrderRequest {
     items: CreateOrderItemRequest[];
 }
+
+export interface OrderForPayment {
+  reference: string;
+  clientFirstname: string;
+  clientLastname: string;
+  totalAmount: number;
+  currency: string;
+  orderState: 'CONFIRMED' | 'IN_PROGRESS';
+}
