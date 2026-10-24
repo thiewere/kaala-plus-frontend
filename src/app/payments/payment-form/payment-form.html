@@ -6,9 +6,31 @@
              <p-select
                 inputId="orderReference"
                 formControlName="orderReference"
-                [options]="['Commande 1', 'Commande 2', 'Commande 3']"
+                [options]="availableOrders()"
+                optionLabel="reference"
+                optionValue="reference"
+                placeholder="Sélectionner une commande"
+                [filter]="true"
+                filterBy="reference,clientFirstname,clientLastname"
                 class="rounded-3xl!"
-            />
+            >
+                <ng-template #item let-order>
+                    <div class="flex items-center gap-2">
+                        <span class="font-semibold">
+                            {{ order.reference }}
+                        </span>
+                        <span>—</span>
+                        <span>
+                            {{ order.clientFirstname }} {{ order.clientLastname }}
+                        </span>
+                        <span>—</span>
+                        <span>
+                            {{ order.totalAmount | number:'1.0-2' }}
+                            {{ order.currency }}
+                        </span>
+                    </div>
+                </ng-template>
+            </p-select>
             <small class="invalid-feedback">La commande est requise!</small>
         </div>
         @if (isOrderSelected()) {
