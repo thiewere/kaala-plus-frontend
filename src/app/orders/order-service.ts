@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct, PendingOrderResponse, OrderDetailsResponse, CompleteExistingOrderRequest } from './order.model';
+import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct, PendingOrderResponse, OrderDetailsResponse, CompleteExistingOrderRequest, OrderForPayment } from './order.model';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +36,13 @@ export class OrderService {
 
   completeExistingOrder(id: number, request: CompleteExistingOrderRequest) {
     return this.httpClient.put<CreateOrderResponse>(`${this.baseUrl}orders/${id}/complete`, request);
+  }
+
+  getOrdersForPayment(): Observable<OrderForPayment[]> {
+    return this.httpClient.get<OrderForPayment[]>(`${this.baseUrl}orders/confirmed`, {
+      params: {
+        states: 'CONFIRMED,IN_PROGRESS'
+      }
+    });
   }
 }
