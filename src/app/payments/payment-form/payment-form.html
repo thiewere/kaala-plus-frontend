@@ -64,13 +64,13 @@
                     <div class="flex flex-col gap-2">
                         <label for="paymentDate" class="font-medium text-slate-700">Date de paiement</label>
                         <p-datepicker
-                            dateFormat="yy/mm/dd"
-                            showIcon="true"
                             inputId="paymentDate"
-                            name="paymentDate"
-                            pInputMask="9999/99/99"
                             formControlName="paymentDate"
-                            placeholder="Ex. 2026/01/01"
+                            dateFormat="yy-mm-dd"
+                            [showIcon]="true"
+                            [showButtonBar]="true"
+                            placeholder="Sélectionner une date"
+                            styleClass="w-full"
                         />
                         <small class="invalid-feedback">La date de paiement est requise!</small>
                     </div>
