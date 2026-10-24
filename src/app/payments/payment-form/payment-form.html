@@ -46,18 +46,26 @@
                     <div class="flex flex-col gap-2">
                         <label for="amount" class="font-medium text-slate-700">Montant</label>
                         <p-inputnumber
-                            id="amount"
+                            inputId="amount"
                             formControlName="amount"
+                            [min]="0"
+                            [minFractionDigits]="0"
+                            [maxFractionDigits]="2"
                             placeholder="Ex. 1 000 000"
+                            styleClass="w-full"
                         />
                         <small class="invalid-feedback">Le montant est requis!</small>
                     </div>
                     <div class="flex flex-col gap-2">
                         <label for="exchangeRate" class="font-medium text-slate-700">Taux de change</label>
                         <p-inputnumber
-                            id="exchangeRate"
+                            inputId="exchangeRate"
                             formControlName="exchangeRate"
+                            [min]="0"
+                            [minFractionDigits]="0"
+                            [maxFractionDigits]="10"
                             placeholder="Ex. 10 000"
+                            styleClass="w-full"
                         />
                         <small class="invalid-feedback">Le taux de change est requis!</small>
                     </div>
