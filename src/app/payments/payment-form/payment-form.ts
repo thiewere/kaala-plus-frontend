@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputMaskModule } from 'primeng/inputmask';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-payment-form',
@@ -22,4 +23,19 @@ export class PaymentForm {
   dialogMode = input(false);
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Paiement', icon: 'money-bill'});
+
+  isOrderSelected = signal(false);
+
+  form = new FormGroup({
+    orderReference: new FormControl('', {validators: [Validators.required], nonNullable: true}),
+    amount: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
+    currencyId: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
+    exchangeRate: new FormControl(1, {validators: [Validators.required], nonNullable: true}),
+    paymentDate: new FormControl('', {validators: [Validators.required], nonNullable: true}),
+    note: new FormControl('', {nonNullable: true})
+  });
+
+  isReadyToSubmit = signal<boolean>(
+    this.form.invalid ? false : true
+  );
 }
