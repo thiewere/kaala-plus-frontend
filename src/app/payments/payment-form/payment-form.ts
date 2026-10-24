@@ -14,7 +14,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-payment-form',
-  imports: [NgTemplateOutlet, CardModule, Header, SelectModule, InputTextModule, TextareaModule, ButtonModule, InputNumberModule, DatePickerModule, InputMaskModule],
+  imports: [NgTemplateOutlet, CardModule, Header, SelectModule, InputTextModule, 
+    TextareaModule, ButtonModule, InputNumberModule, DatePickerModule, InputMaskModule],
   templateUrl: './payment-form.html',
   styleUrl: './payment-form.scss',
 })
