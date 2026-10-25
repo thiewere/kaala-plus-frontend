@@ -80,6 +80,14 @@ export class PaymentForm {
     return this.estimatedConvertedAmount() > summary.remainingAmount;
   });
 
+  private readonly currencyId = toSignal(this.paymentForm.controls.currencyId.valueChanges,
+    {initialValue: this.paymentForm.controls.currencyId.value});
+  
+  protected readonly selectedCurrency = computed(() =>{
+    const currencyId = this.currencyId();
+    return this.currencies.find(c => c.id === currencyId)?.name}
+  );
+
   constructor() {
      this.paymentForm.controls.orderReference.valueChanges
     .pipe(

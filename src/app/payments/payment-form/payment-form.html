@@ -96,6 +96,14 @@
                             placeholder="Ex. 10 000"
                             styleClass="w-full"
                         />
+                        @if (selectedCurrency() && selectedOrder()) {
+                            <small class="text-slate-500">
+                                1 {{ selectedCurrency() }}
+                                =
+                                {{ paymentForm.controls.exchangeRate.value | number:'1.0-10' }}
+                                {{ selectedOrder()?.currency }}
+                            </small>
+                        }
                         <small class="invalid-feedback">Le taux de change est requis!</small>
                     </div>
                     <div class="flex flex-col gap-2">
