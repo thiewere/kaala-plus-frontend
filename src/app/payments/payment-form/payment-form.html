@@ -112,6 +112,7 @@
                             inputId="paymentDate"
                             formControlName="paymentDate"
                             dateFormat="yy-mm-dd"
+                            [maxDate]="maxPaymentDate"
                             [showIcon]="true"
                             [showButtonBar]="true"
                             placeholder="Sélectionner une date"
@@ -150,7 +151,7 @@
                 type="submit" 
                 label="Créer" 
                 pButton
-                [disabled]="paymentForm.invalid || exceedsRemainingAmount() || !selectedOrder()"
+                [disabled]="paymentForm.invalid || exceedsRemainingAmount() || !selectedOrder() || isSubmitting()"
                 >Enregistrer</button>
         </div>
     </form>

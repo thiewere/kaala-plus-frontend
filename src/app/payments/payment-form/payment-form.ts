@@ -15,7 +15,7 @@ import { OrderService } from '../../orders/order-service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { PaymentService } from '../payment-service';
 import { CreatePaymentRequest, OrderPaymentSummary } from '../payment.model';
-import { catchError, of, switchMap } from 'rxjs';
+import { catchError, finalize, of, switchMap } from 'rxjs';
 import { Currency } from '../../orders/order.model';
 import { MessageService } from 'primeng/api';
 
@@ -47,7 +47,7 @@ export class PaymentForm {
     { id: 3, name: 'USD' }
   ];
 
-  isOrderSelected = signal(true);
+  isSubmitting = signal(false);
 
   paymentForm = new FormGroup({
     orderReference: new FormControl('', {validators: [Validators.required], nonNullable: true}),
@@ -89,6 +89,8 @@ export class PaymentForm {
     const currencyId = this.currencyId();
     return this.currencies.find(c => c.id === currencyId)?.name}
   );
+
+  protected readonly maxPaymentDate = new Date();
 
   constructor() {
      this.paymentForm.controls.orderReference.valueChanges
@@ -182,7 +184,9 @@ export class PaymentForm {
       paymentDate: formatDate(formValues.paymentDate, 'yyyy-MM-dd', 'en-US')
     }
     
+    this.isSubmitting.set(true);
     this.paymentService.createPayment(request)
+        .pipe(finalize(() => this.isSubmitting.set(false)))
         .subscribe({
           next: (payment) => {
            this.messageService.add({
