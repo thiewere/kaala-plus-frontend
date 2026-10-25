@@ -18,6 +18,7 @@ import { CreatePaymentRequest, OrderPaymentSummary } from '../payment.model';
 import { catchError, finalize, of, switchMap } from 'rxjs';
 import { Currency } from '../../orders/order.model';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-form',
@@ -32,6 +33,7 @@ export class PaymentForm {
   orderServer = inject(OrderService);
   paymentService = inject(PaymentService);
   messageService = inject(MessageService);
+  router = inject(Router);
 
   dialogMode = input(false);
 
@@ -191,8 +193,10 @@ export class PaymentForm {
           next: (payment) => {
            this.messageService.add({
               severity:'success', 
-              summary: 'Paiement créé', 
+              summary: 'Paiement effectué', 
               detail: `Le paiement de ${payment.amount} ${payment.currency} a été créé avec succès.`});
+            
+              this.router.navigate(['payments']);
           },
           error: (error) => {
             this.messageService.add({
