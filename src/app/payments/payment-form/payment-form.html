@@ -1,5 +1,5 @@
 <ng-template #paymentFormTemplate>
-    <form >
+    <form [formGroup]="paymentForm" >
         <h2 class="text-xl font-semibold text-cyan-900 mb-4">Nouveau Paiement</h2>
         <div class="flex flex-col gap-2">
             <label for="orderReference" class="font-medium text-slate-700">Commande</label>
@@ -33,25 +33,25 @@
             </p-select>
             <small class="invalid-feedback">La commande est requise!</small>
         </div>
-        @if (isOrderSelected()) {
+        @if (selectedOrder(); as summary) {
             <section class="rounded-xl border border-stone-200 p-6 mb-2 mt-4">
                 <div class="field">
-                    <h3 class="text-lg font-semibold text-slate-800 mb-2">Résumé financier</h3>
+                    <h3 class="text-lg font-semibold text-slate-800 mb-2">Résumé financier — {{ summary.orderReference }}</h3>
                     <div class="flex justify-between gap-6">
                         <div>
                             <small class="text-slate-600">Total</small>
-                            <p class="text-slate-800 font-semibold">2 250 000</p>
-                            <span class="text-slate-600">GNF</span>
+                            <p class="text-slate-800 font-semibold">{{ summary.orderTotal | number:'1.0-2' }}</p>
+                            <span class="text-slate-600">{{ summary.currency }}</span>
                         </div>
                         <div>
                             <small class="text-slate-600">Montant payé</small>
-                            <p class="text-slate-800 font-semibold">1 000 000</p>
-                            <span class="text-slate-600">GNF</span>
+                            <p class="text-slate-800 font-semibold">{{ summary.totalPaid | number:'1.0-2' }}</p>
+                            <span class="text-slate-600">{{ summary.currency }}</span>
                         </div>
                         <div>
                             <small class="text-slate-600">Montant restant</small>
-                            <p class="text-slate-800 font-semibold">1 250 000</p>
-                            <span class="text-slate-600">GNF</span>
+                            <p class="text-slate-800 font-semibold">{{ summary.remainingAmount | number:'1.0-2' }}</p>
+                            <span class="text-slate-600">{{ summary.currency }}</span>
                         </div>
                     </div>
                 </div>

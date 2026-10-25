@@ -10,26 +10,33 @@ import { ButtonModule } from 'primeng/button';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DatePickerModule } from 'primeng/datepicker';
 import { InputMaskModule } from 'primeng/inputmask';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { OrderService } from '../../orders/order-service';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { PaymentService } from '../payment-service';
+import { OrderPaymentSummary } from '../payment.model';
+import { catchError, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-payment-form',
   imports: [NgTemplateOutlet, CardModule, Header, SelectModule, InputTextModule, 
-    TextareaModule, ButtonModule, InputNumberModule, DatePickerModule, InputMaskModule, DecimalPipe],
+    TextareaModule, ButtonModule, InputNumberModule, DatePickerModule, 
+    InputMaskModule, DecimalPipe, ReactiveFormsModule],
   templateUrl: './payment-form.html',
   styleUrl: './payment-form.scss',
 })
 export class PaymentForm {
 
   orderServer = inject(OrderService);
+  paymentService = inject(PaymentService);
 
   dialogMode = input(false);
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Paiement', icon: 'money-bill'});
 
   availableOrders = toSignal(this.orderServer.getOrdersForPayment());
+
+  selectedOrder = signal<OrderPaymentSummary | null>(null);
 
   isOrderSelected = signal(true);
 
@@ -42,7 +49,29 @@ export class PaymentForm {
     note: new FormControl('', {nonNullable: true})
   });
 
-  isReadyToSubmit = signal<boolean>(
-    this.form.invalid ? false : true
-  );
+  constructor() {
+     this.paymentForm.controls.orderReference.valueChanges
+    .pipe(
+      switchMap(reference => {
+        console.log('Commande sélectionnée :', reference);
+        this.selectedOrder.set(null);
+
+        if (!reference) {
+          return of(null);
+        }
+
+        return this.paymentService.getOrderPaymentSummary(reference)
+          .pipe(
+            catchError(error => {
+              console.error('Erreur de chargement du résumé', error);
+              return of(null);
+            })
+          );
+      }),
+      takeUntilDestroyed()
+    )
+    .subscribe(summary => {
+      this.selectedOrder.set(summary);
+    });
+  } 
 }
