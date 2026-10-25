@@ -64,7 +64,11 @@
                         <p-select
                             inputId="currencyId"
                             formControlName="currencyId"
-                            [options]="['GNF', 'USD', 'RMB']"
+                            [options]="currencies"
+                            optionLabel="name"
+                            optionValue="id"
+                            placeholder="Sélectionner une devise"
+                            class="w-full"
                         />
                         <small class="invalid-feedback">La devise de paiement est requise!</small>
                     </div>

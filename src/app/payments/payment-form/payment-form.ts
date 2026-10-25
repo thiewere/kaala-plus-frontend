@@ -16,6 +16,7 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { PaymentService } from '../payment-service';
 import { OrderPaymentSummary } from '../payment.model';
 import { catchError, of, switchMap } from 'rxjs';
+import { Currency } from '../../orders/order.model';
 
 @Component({
   selector: 'app-payment-form',
@@ -37,6 +38,12 @@ export class PaymentForm {
   availableOrders = toSignal(this.orderServer.getOrdersForPayment());
 
   selectedOrder = signal<OrderPaymentSummary | null>(null);
+
+  currencies: Currency[] = [
+    { id: 1, name: 'RMB' },
+    { id: 2, name: 'GNF' },
+    { id: 3, name: 'USD' }
+  ];
 
   isOrderSelected = signal(true);
 
