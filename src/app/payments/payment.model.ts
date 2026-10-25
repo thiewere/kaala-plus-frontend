@@ -21,3 +21,12 @@ export interface CreatePaymentRequest {
     paymentDate:    string;
     note:           string;
 }
+
+export interface OrderPaymentSummary {
+  orderReference: string;
+  orderTotal: number;
+  totalPaid: number;
+  remainingAmount: number;
+  currency: string;
+  payments: Payment[];
+}
