@@ -1,4 +1,4 @@
-import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
+import { DecimalPipe, formatDate, NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { Header } from '../../header/header';
@@ -14,7 +14,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { OrderService } from '../../orders/order-service';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { PaymentService } from '../payment-service';
-import { OrderPaymentSummary } from '../payment.model';
+import { CreatePaymentRequest, OrderPaymentSummary } from '../payment.model';
 import { catchError, of, switchMap } from 'rxjs';
 import { Currency } from '../../orders/order.model';
 
@@ -163,5 +163,22 @@ export class PaymentForm {
       exchangeRateControl.enable();
       exchangeRateControl.reset();
     }
+  }
+
+  onSubmit(): void {
+    this.paymentForm.markAllAsTouched();
+
+    if (this.paymentForm.invalid || this.exceedsRemainingAmount()) return;
+
+    const formValues = this.paymentForm.getRawValue();
+    if (formValues.currencyId === null || formValues.exchangeRate === null) return;
+
+    const request: CreatePaymentRequest = {
+      ...formValues,
+      currencyId: formValues.currencyId,
+      exchangeRate: formValues.exchangeRate,
+      paymentDate: formatDate(formValues.paymentDate, 'yyyy-MM-dd', 'en-US')
+    }
+    
   }
 }

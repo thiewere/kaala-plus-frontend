@@ -1,5 +1,5 @@
 <ng-template #paymentFormTemplate>
-    <form [formGroup]="paymentForm" >
+    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
         <h2 class="text-xl font-semibold text-cyan-900 mb-4">Nouveau Paiement</h2>
         <div class="flex flex-col gap-2">
             <label for="orderReference" class="font-medium text-slate-700">Commande</label>
