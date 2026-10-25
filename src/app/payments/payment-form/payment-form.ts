@@ -50,8 +50,8 @@ export class PaymentForm {
   paymentForm = new FormGroup({
     orderReference: new FormControl('', {validators: [Validators.required], nonNullable: true}),
     amount: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
-    currencyId: new FormControl(0, {validators: [Validators.required], nonNullable: true}),
-    exchangeRate: new FormControl(1, {validators: [Validators.required], nonNullable: true}),
+    currencyId: new FormControl<number | null>(null, {validators: [Validators.required], nonNullable: true}),
+    exchangeRate: new FormControl<number | null>(null, {validators: [Validators.required], nonNullable: true}),
     paymentDate: new FormControl('', {validators: [Validators.required], nonNullable: true}),
     note: new FormControl('', {nonNullable: true})
   });
