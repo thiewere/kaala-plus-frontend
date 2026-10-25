@@ -17,6 +17,7 @@ import { PaymentService } from '../payment-service';
 import { CreatePaymentRequest, OrderPaymentSummary } from '../payment.model';
 import { catchError, of, switchMap } from 'rxjs';
 import { Currency } from '../../orders/order.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-payment-form',
@@ -30,6 +31,7 @@ export class PaymentForm {
 
   orderServer = inject(OrderService);
   paymentService = inject(PaymentService);
+  messageService = inject(MessageService);
 
   dialogMode = input(false);
 
@@ -183,12 +185,17 @@ export class PaymentForm {
     this.paymentService.createPayment(request)
         .subscribe({
           next: (payment) => {
-            console.log('Paiement créé avec succès :', payment);
-            this.paymentForm.reset();
-            this.selectedOrder.set(null);
+           this.messageService.add({
+              severity:'success', 
+              summary: 'Paiement créé', 
+              detail: `Le paiement de ${payment.amount} ${payment.currency} a été créé avec succès.`});
           },
           error: (error) => {
-            console.error('Erreur lors de la création du paiement :', error);
+            this.messageService.add({
+              severity:'error', 
+              summary: 'Erreur', 
+              detail: error?.error?.message || 'Une erreur est survenue lors de la création du paiement.'
+            });
           }
         });
   }
