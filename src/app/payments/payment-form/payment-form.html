@@ -124,7 +124,15 @@
                 </div>
                 <div>
                     <small>Montant converti estimé</small>
-                    <h4 class="text-lg font-semibold text-slate-800">1 000 000 GNF</h4>
+                    <h4 class="text-lg font-semibold text-slate-800">
+                        {{ estimatedConvertedAmount() | number:'1.0-2' }}
+                        {{ selectedOrder()?.currency }}
+                    </h4>
+                    @if (exceedsRemainingAmount()) {
+                        <small class="text-red-600">
+                            Le montant converti dépasse le solde restant de la commande.
+                        </small>
+                    }
                 </div>
             </section>
 
@@ -134,7 +142,7 @@
                 type="submit" 
                 label="Créer" 
                 pButton
-                [disabled]="paymentForm.invalid"
+                [disabled]="paymentForm.invalid || exceedsRemainingAmount() || !selectedOrder()"
                 >Enregistrer</button>
         </div>
     </form>

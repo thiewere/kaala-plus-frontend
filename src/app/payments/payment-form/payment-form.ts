@@ -1,5 +1,5 @@
 import { DecimalPipe, NgTemplateOutlet } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { Header } from '../../header/header';
 import { HeaderData } from '../../header/header-data.model';
@@ -54,6 +54,30 @@ export class PaymentForm {
     exchangeRate: new FormControl<number | null>(null, {validators: [Validators.required], nonNullable: true}),
     paymentDate: new FormControl('', {validators: [Validators.required], nonNullable: true}),
     note: new FormControl('', {nonNullable: true})
+  });
+
+  protected readonly paymentValues = toSignal(this.paymentForm.valueChanges, 
+    {initialValue: this.paymentForm.getRawValue()});
+  
+  protected readonly estimatedConvertedAmount = computed(() => {
+    this.paymentValues();
+
+    const {amount, exchangeRate} = this.paymentForm.getRawValue();
+
+    if (amount === null || exchangeRate === null ||
+      amount <= 0 || exchangeRate <= 0) {
+        return 0;
+    }
+
+    return Math.round((amount * exchangeRate + Number.EPSILON) * 100) / 100;
+  });
+
+  protected readonly exceedsRemainingAmount = computed(() => {
+    const summary = this.selectedOrder();
+
+    if (!summary) return false;
+
+    return this.estimatedConvertedAmount() > summary.remainingAmount;
   });
 
   constructor() {
