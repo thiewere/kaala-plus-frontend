@@ -180,5 +180,16 @@ export class PaymentForm {
       paymentDate: formatDate(formValues.paymentDate, 'yyyy-MM-dd', 'en-US')
     }
     
+    this.paymentService.createPayment(request)
+        .subscribe({
+          next: (payment) => {
+            console.log('Paiement créé avec succès :', payment);
+            this.paymentForm.reset();
+            this.selectedOrder.set(null);
+          },
+          error: (error) => {
+            console.error('Erreur lors de la création du paiement :', error);
+          }
+        });
   }
 }
