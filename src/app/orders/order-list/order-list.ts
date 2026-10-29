@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { OrderService } from '../order-service';
-import { OrderProduct } from '../order.model';
+import { OrderSummary } from '../order.model';
 
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
@@ -12,6 +12,7 @@ import { HeaderData } from '../../header/header-data.model';
 import { OrderItem } from "../order-item/order-item";
 import { RechercheAdd } from "../../recherche-add/recherche-add";
 import { RechercheAddData } from '../../recherche-add/recherche-add-data.model';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-order-list',
@@ -22,17 +23,12 @@ import { RechercheAddData } from '../../recherche-add/recherche-add-data.model';
 export class OrderList {
   orderService = inject(OrderService);
 
-  orders = signal<OrderProduct[]>([]);
+  orders = toSignal<OrderSummary[]>(this.orderService.getOrderSummaries());
 
   protected readonly headerData = signal<HeaderData>({title: "Liste des commandes", icon: "shopping-cart"})
  
   protected readonly searchAddFieldData = signal<RechercheAddData>({placeholder: "Rechercher par le nom", label: "Nouvelle Commande", link: "create"})
 
-  constructor() {
-    this.orderService.getOrderProducts().subscribe((data) => {
-      this.orders.set(data)
-    })
-  }
 
    getSeverity(status: string) {
         switch (status) {

@@ -1,48 +1,53 @@
 <td>
-    <span class="font-medium">{{ order().id }}</span>
+    <span class="font-medium">{{ index() + 1}}</span>
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span>{{ order().order!.reference }}</span>
+        <span>{{ order().reference }}</span>
     </div>
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span class="text-sm">{{ order().order!.client.firstname + ' ' +  order().order!.client.lastname}}</span>
+        <span class="text-sm">{{ order().clientFirstname + ' ' +  order().clientLastname}}</span>
     </div>
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span class="text-sm">{{ order().order!.createdAt}}</span>
+        <span class="text-sm">{{ order().createdAt}}</span>
     </div>
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span class="text-sm">{{ order().totalPrice | currency }}</span>
+        <span class="text-sm">{{ `${order().totalAmount} ${order().currency}` }}</span>
     </div>
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span class="text-sm">{{ order().totalPrice | currency }}</span>
+        <span class="text-sm">{{ `${order().totalPaid} ${order().totalPaid === 0 ? '' : order().currency}` }}</span>
     </div>
 </td>
 <td>
     <div class="flex items-center gap-2">
-        <span class="text-sm">{{ order().totalPrice | currency }}</span>
+        <span class="text-sm">{{ `${order().remainingAmount} ${order().remainingAmount === 0 ? '' : order().currency}`}}</span>
     </div>
-</td>
-<td>
-    <div class="flex items-center gap-2">
-        <span class="text-sm">30%</span>
-    </div>
-</td>
-<td>
-    <span class="text-sm">{{ order().order!.orderState }}</span>
 </td>
 
 <td>
-    <span class="font-semibold">MAERS</span>
+    <p-tag
+    [value]="getStatusLabel(order().orderState)"
+    [severity]="getStatusSeverity(order().orderState)"
+    />
 </td>
+
+
 <td>
-    <span class="font-semibold">Edit</span>
+    <button
+        pButton
+        type="button"
+        severity="secondary"
+        [text]="true"
+        size="small"
+    >Détails
+    <svg data-p-icon="eye" [size]="16"></svg>
+    </button>
 </td>

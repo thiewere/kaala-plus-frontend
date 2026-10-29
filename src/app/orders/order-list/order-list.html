@@ -17,14 +17,12 @@
                     <th >Montant total</th>
                     <th >Montant payé</th>
                     <th >Reste à payer</th>
-                    <th >Paiement</th>
                     <th >Statut</th>
-                    <th >Conteneur</th>
                     <th >Action</th>
             </tr>
         </ng-template>
-        <ng-template #body let-order>
-            <tr app-order-item [order]="order"></tr>
+        <ng-template #body let-order let-rowIndex="rowIndex">
+            <tr app-order-item [order]="order" [index]="rowIndex"></tr>
         </ng-template>
     </p-table>
 
