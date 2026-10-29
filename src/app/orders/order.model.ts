@@ -91,3 +91,16 @@ export interface OrderForPayment {
   currency: string;
   orderState: 'CONFIRMED' | 'IN_PROGRESS';
 }
+
+export interface OrderSummary {
+    id:              number;
+    reference:       string;
+    clientFirstname: string;
+    clientLastname:  string;
+    createdAt:       string;
+    totalAmount:     number;
+    totalPaid:       number;
+    remainingAmount: number;
+    currency:        string;
+    orderState:      string;
+}
