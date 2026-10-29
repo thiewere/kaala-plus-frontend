@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct, PendingOrderResponse, OrderDetailsResponse, CompleteExistingOrderRequest, OrderForPayment } from './order.model';
+import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct, PendingOrderResponse, OrderDetailsResponse, CompleteExistingOrderRequest, OrderForPayment, OrderSummary } from './order.model';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -44,5 +44,9 @@ export class OrderService {
         states: 'CONFIRMED,IN_PROGRESS'
       }
     });
+  }
+
+  getOrderSummaries(): Observable<OrderSummary[]> {
+    return this.httpClient.get<OrderSummary[]>(`${this.baseUrl}orders/summary`);
   }
 }
