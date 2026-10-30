@@ -1,13 +1,12 @@
 import { Component, input } from '@angular/core';
 import { OrderSummary } from '../order.model';
-import { CurrencyPipe } from '@angular/common';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { Eye } from '@primeicons/angular/eye';
 
 @Component({
   selector: 'tr[app-order-item]',
-  imports: [CurrencyPipe, TagModule, ButtonModule, Eye],
+  imports: [TagModule, ButtonModule, Eye],
   templateUrl: './order-item.html',
   styleUrl: './order-item.scss',
 })
