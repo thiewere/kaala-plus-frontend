@@ -7,12 +7,14 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { HeaderData } from '../../header/header-data.model';
 import { Header } from '../../header/header';
 import { Card } from 'primeng/card';
+import { ArrowLeft } from '@primeicons/angular/arrow-left';
 import { PaymentService } from '../../payments/payment-service';
-
+import { ButtonModule } from 'primeng/button';
+import { CheckCircle } from '@primeicons/angular/check-circle';
 
 @Component({
   selector: 'app-order-details',
-  imports: [DatePipe, RouterLink, Header, Card, DecimalPipe],
+  imports: [DatePipe, RouterLink, Header, Card, DecimalPipe, ButtonModule, CheckCircle, ArrowLeft],
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',
 })

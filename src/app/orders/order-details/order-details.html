@@ -197,6 +197,29 @@
                             </dl>
                         </section>
                     }
+
+                    @if (order.state === 'READY_FOR_CONFIRMATION') {
+                        <section class="details-card">
+                            <h2 class="mb-4 text-lg font-semibold text-slate-900">
+                                Confirmation du client
+                            </h2>
+
+                            <p class="mb-5 text-sm leading-relaxed text-slate-500">
+                                Confirmez uniquement après acceptation des produits,
+                                des quantités et des prix par le client.
+                            </p>
+
+                            <button
+                                pButton
+                                type="button"
+                                icon="pi pi-check-circle"
+                                class="w-full"
+                            >
+                                <svg data-p-icon="check-circle" [size]="24"></svg>
+                                Confirmer la commande
+                            </button>
+                        </section>
+                    }
                 </aside>
             </div>
         } @else {
