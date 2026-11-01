@@ -162,6 +162,42 @@
                         </section>
                     }
                 </div>
+
+                <aside class="space-y-5">
+                    <!-- Finance summary and confirmation button  -->
+
+                    @if (paymentSummary(); as summary) {
+                        <section class="details-card">
+                            <h2 class="mb-4 text-lg font-semibold text-slate-900">
+                                Résumé financier
+                            </h2>
+
+                            <dl class="text-sm">
+                            <div class="flex justify-between gap-4 border-b border-slate-100 py-3">
+                                <dt class="text-slate-500">Montant total</dt>
+                                <dd class="font-semibold text-slate-700">
+                                {{ summary.orderTotal | number:'1.2-2' }} {{ summary.currency }}
+                                </dd>
+                            </div>
+
+                            <div class="flex justify-between gap-4 py-3">
+                                <dt class="text-slate-500">Déjà payé</dt>
+                                <dd class="font-semibold text-slate-700">
+                                {{ summary.totalPaid | number:'1.2-2' }} {{ summary.currency }}
+                                </dd>
+                            </div>
+
+                            <div class="mt-2 flex justify-between gap-4 rounded-lg bg-cyan-50 p-3 text-cyan-800">
+                                <dt class="font-semibold">Reste à payer</dt>
+                                <dd class="text-lg font-bold">
+                                {{ summary.remainingAmount | number:'1.2-2' }}
+                                {{ summary.currency }}
+                                </dd>
+                            </div>
+                            </dl>
+                        </section>
+                    }
+                </aside>
             </div>
         } @else {
             <p class="p-6 text-slate-500">Chargement de la commande…</p>
