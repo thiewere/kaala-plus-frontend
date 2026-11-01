@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OrderService } from '../order-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { OrderViewResponse } from '../order.model';
@@ -10,7 +10,7 @@ import { Card } from 'primeng/card';
 
 @Component({
   selector: 'app-order-details',
-  imports: [ Header, Card],
+  imports: [ RouterLink, Header, Card],
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',
 })

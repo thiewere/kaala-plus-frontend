@@ -4,7 +4,20 @@
     <p-card class="details-page">
         @if (orderDetails(); as order) {
             <nav class="flex flex-col gap-5">
-               
+                <span>
+                    <a routerLink="/orders" class="text-cyan-700">Commandes</a>
+                    <span class="mx-3">/</span>
+                    <span>{{ order.reference }}</span>
+                </span>
+                <span>
+                    <a
+                        routerLink="/orders"
+                        class="inline-flex items-center gap-2 text-sm font-medium text-cyan-800"
+                    >
+                        <svg data-p-icon="arrow-left" [size]="18"></svg>
+                        Retour aux commandes
+                    </a>
+                </span>
             </nav>
 
             <header class="mb-6 mt-2">
