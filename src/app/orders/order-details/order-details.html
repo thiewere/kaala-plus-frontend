@@ -53,6 +53,63 @@
                             </div>
                         </dl>
                     </section>
+
+                    <!-- Tableau des produits, puis paiements -->
+
+                    <section class="details-card">
+                        <h2 class="mb-4 text-lg font-semibold text-slate-900">
+                            Produits commandés
+                        </h2>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-slate-100 text-slate-500">
+                                    <tr>
+                                        <th class="rounded-l-lg p-3 text-left">Produit</th>
+                                        <th class="p-3 text-left">Fournisseur</th>
+                                        <th class="p-3 text-right">Quantité</th>
+                                        <th class="p-3 text-right">Prix unitaire</th>
+                                        <th class="rounded-r-lg p-3 text-right">Total</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="text-slate-700">
+                                    @for (item of order.items; track item.id) {
+                                        <tr class="border-b border-slate-100">
+                                            <td class="p-3">
+                                                <span class="font-medium">{{ item.productName }}</span>
+
+                                                @if ( item.brandName ) {
+                                                    <span class="mt-1 block text-xs text-slate-500">
+                                                        {{ item.brandName }}
+                                                    </span>
+                                                }
+                                            </td>
+
+                                            <td class="p-3">{{ item.supplierName }}</td>
+                                            <td class="p-3 text-right">{{ item.quantity }}</td>
+
+                                            <td class="whitespace-nowrap p-3 text-right">
+                                                {{ item.unitPrice | number:'1.2-2' }} {{ order.currency }}
+                                            </td>
+
+                                            <td class="whitespace-nowrap p-3 text-right font-medium">
+                                                {{ item.totalPrice | number:'1.2-2' }} {{ order.currency }}
+                                            </td>
+                                        </tr>
+                                    } @empty {
+                                        <tr>
+                                            <td colspan="5" class="p-6 text-center text-slate-500">
+                                                Aucun produit dans cette commande.
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div> 
+                    </section>
+
                 </div>
             </div>
         } @else {
