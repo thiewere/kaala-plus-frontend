@@ -31,7 +31,29 @@
             </header>
 
             <div class="grid grid-cols-1 items-start gap-5 xl:grid-cols-3">
-               
+                <div class="space-y-5 xl:col-span-2">
+                    <section class="details-card">
+                        <h2 class="mb-4 text-lg font-semibold text-slate-900">
+                            Client
+                        </h2>
+
+                        <dl class="text-sm">
+                            <div class="grid grid-cols-1 gap-2 border-b border-slate-100 pb-4 sm:grid-cols-[130px_1fr]">
+                                <dt class="text-slate-500">Client</dt>
+                                <dd class="text-slate-700">
+                                    {{ order.clientFirstname }} {{ order.clientLastname }}
+                                </dd>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-2 pt-4 sm:grid-cols-[130px_1fr]">
+                            <dt class="text-slate-500">Description</dt>
+                                <dd class="whitespace-pre-line break-words text-slate-700">
+                                    {{ order.description || 'Aucune description' }}
+                                </dd>
+                            </div>
+                        </dl>
+                    </section>
+                </div>
             </div>
         } @else {
             <p class="p-6 text-slate-500">Chargement de la commande…</p>
