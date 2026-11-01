@@ -1,8 +1,9 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { OrderSummary } from '../order.model';
 import { TagModule } from 'primeng/tag';
 import { ButtonModule } from 'primeng/button';
 import { Eye } from '@primeicons/angular/eye';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tr[app-order-item]',
@@ -11,6 +12,8 @@ import { Eye } from '@primeicons/angular/eye';
   styleUrl: './order-item.scss',
 })
 export class OrderItem {
+
+    router = inject(Router);
 
   order = input.required<OrderSummary>();
   index = input.required<number>();
@@ -55,5 +58,8 @@ export class OrderItem {
             return 'secondary' as const;
     }
 }
-  
+    viewOrderDetails(reference: string) {
+        this.router.navigate(['/orders', reference, 'details']);
+    }
+
 }
