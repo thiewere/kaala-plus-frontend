@@ -10,12 +10,14 @@ import { ClientForm } from './clients/client-form/client-form';
 import { OrderForm } from './orders/order-form/order-form';
 import { ProductForm } from './products/product-form/product-form';
 import { PaymentForm } from './payments/payment-form/payment-form';
+import { OrderDetails } from './orders/order-details/order-details';
 
 export const routes: Routes = [
     {path: '', component: Dashboard},
     {path: 'orders', component: OrderList},
     {path: 'orders/create', component: OrderForm},
     {path: 'orders/:id/complete', component: OrderForm},
+    {path: 'orders/:reference/details', component: OrderDetails},
     {path: 'clients', component: ClientList},
     {path: 'clients/create', component: ClientForm},
     {path: 'products', component: ProductList},
