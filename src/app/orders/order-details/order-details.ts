@@ -5,11 +5,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { OrderViewResponse } from '../order.model';
 import { HeaderData } from '../../header/header-data.model';
 import { Header } from '../../header/header';
+import { Card } from 'primeng/card';
 
 
 @Component({
   selector: 'app-order-details',
-  imports: [ Header ],
+  imports: [ Header, Card],
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',
 })

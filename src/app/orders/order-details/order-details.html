@@ -1,3 +1,21 @@
 <div>
     <app-header [header]="headerData()" />
+
+    <p-card class="details-page">
+        @if (orderDetails(); as order) {
+            <nav class="flex flex-col gap-5">
+               
+            </nav>
+
+            <header class="mb-6 mt-2">
+                
+            </header>
+
+            <div class="grid grid-cols-1 items-start gap-5 xl:grid-cols-3">
+               
+            </div>
+        } @else {
+            <p class="p-6 text-slate-500">Chargement de la commande…</p>
+        }
+    </p-card>
 </div>
