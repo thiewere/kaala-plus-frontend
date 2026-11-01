@@ -7,6 +7,7 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { HeaderData } from '../../header/header-data.model';
 import { Header } from '../../header/header';
 import { Card } from 'primeng/card';
+import { PaymentService } from '../../payments/payment-service';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { Card } from 'primeng/card';
 export class OrderDetails {
 
   orderService = inject(OrderService);
+  paymentService = inject(PaymentService);
   activatedRoute = inject(ActivatedRoute);
   
   orderReference = this.activatedRoute.snapshot.paramMap.get('reference');
@@ -26,5 +28,5 @@ export class OrderDetails {
 
 
   orderDetails = toSignal<OrderViewResponse>(this.orderService.getOrderDetails(this.orderReference!));
-
+  paymentSummary = toSignal(this.paymentService.getOrderPaymentSummary(this.orderReference!));
 }
