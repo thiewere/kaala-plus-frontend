@@ -3,6 +3,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { OrderService } from '../order-service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { OrderViewResponse } from '../order.model';
+import { DatePipe } from '@angular/common';
 import { HeaderData } from '../../header/header-data.model';
 import { Header } from '../../header/header';
 import { Card } from 'primeng/card';
@@ -10,7 +11,7 @@ import { Card } from 'primeng/card';
 
 @Component({
   selector: 'app-order-details',
-  imports: [ RouterLink, Header, Card],
+  imports: [DatePipe, RouterLink, Header, Card],
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',
 })

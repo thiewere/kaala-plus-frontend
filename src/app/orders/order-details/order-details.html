@@ -21,7 +21,13 @@
             </nav>
 
             <header class="mb-6 mt-2">
-                
+                <h1 class=" font-bold text-cyan-900 md:text-3xl">
+                    Commande {{ order.reference }}
+                </h1>
+
+                <p class="mt-2 text-sm text-slate-500">
+                    Créée le {{ order.createdAt | date:'dd/MM/yyyy' }}
+                </p>
             </header>
 
             <div class="grid grid-cols-1 items-start gap-5 xl:grid-cols-3">
