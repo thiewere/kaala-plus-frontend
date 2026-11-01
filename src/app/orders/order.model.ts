@@ -104,3 +104,26 @@ export interface OrderSummary {
     currency:        string;
     orderState:      string;
 }
+
+export interface OrderViewResponse {
+    id:              number;
+    reference:       string;
+    currency:        string;
+    description:     string | null;
+    state:           string;
+    clientFirstname: string;
+    clientLastname:  string;
+    createdAt:       Date;
+    confirmedAt:     string | null;
+    items:           Item[];
+}
+
+export interface Item {
+    id:           number;
+    productName:  string;
+    brandName:    string | null;
+    supplierName: string;
+    quantity:     number;
+    unitPrice:    number;
+    totalPrice:   number;
+}
