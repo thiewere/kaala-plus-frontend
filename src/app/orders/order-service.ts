@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct, PendingOrderResponse, OrderDetailsResponse, CompleteExistingOrderRequest, OrderForPayment, OrderSummary } from './order.model';
+import { CreateCompleteOrderRequest, CreateOrderResponse, CreateOrderRequest, OrderProduct, PendingOrderResponse, OrderDetailsResponse, CompleteExistingOrderRequest, OrderForPayment, OrderSummary, OrderViewResponse } from './order.model';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
@@ -48,5 +48,9 @@ export class OrderService {
 
   getOrderSummaries(): Observable<OrderSummary[]> {
     return this.httpClient.get<OrderSummary[]>(`${this.baseUrl}orders/summary`);
+  }
+
+  getOrderDetails(reference: string): Observable<OrderViewResponse> {
+    return this.httpClient.get<OrderViewResponse>(`${this.baseUrl}orders/${reference}/details`);
   }
 }
