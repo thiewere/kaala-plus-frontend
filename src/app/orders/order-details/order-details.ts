@@ -12,6 +12,8 @@ import { PaymentService } from '../../payments/payment-service';
 import { ButtonModule } from 'primeng/button';
 import { CheckCircle } from '@primeicons/angular/check-circle';
 
+import { startWith, Subject, switchMap } from 'rxjs';
+
 @Component({
   selector: 'app-order-details',
   imports: [DatePipe, RouterLink, Header, Card, DecimalPipe, ButtonModule, CheckCircle, ArrowLeft],
@@ -29,6 +31,25 @@ export class OrderDetails {
   protected readonly headerData =  signal<HeaderData>({title: `Detail de la commande ${this.orderReference}`, icon: "shopping-cart"})
 
 
-  orderDetails = toSignal<OrderViewResponse>(this.orderService.getOrderDetails(this.orderReference!));
+  private refreshOrder$ = new Subject<void>();
+  orderDetails = toSignal<OrderViewResponse>(
+    this.refreshOrder$.pipe(
+      startWith(undefined),
+      switchMap(() =>
+        this.orderService.getOrderDetails(this.orderReference!)
+    ))
+  );
   paymentSummary = toSignal(this.paymentService.getOrderPaymentSummary(this.orderReference!));
+
+  submit() {
+    this.orderService.confirmOrder(this.orderReference!).subscribe({
+      next: () => {
+        console.log('Order confirmed successfully');
+        this.refreshOrder$.next(); // Trigger a refresh of the order details
+      },
+      error: (error) => { 
+        console.error('Error confirming order:', error);
+      }
+    });
+  }
 }

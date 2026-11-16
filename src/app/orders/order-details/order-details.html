@@ -214,10 +214,34 @@
                                 type="button"
                                 icon="pi pi-check-circle"
                                 class="w-full"
+                                (click)="submit()"
                             >
                                 <svg data-p-icon="check-circle" [size]="24"></svg>
                                 Confirmer la commande
                             </button>
+                        </section>
+                    }  @else if (
+                        order.state === 'CONFIRMED' ||
+                        order.state === 'IN_PROGRESS' ||
+                        order.state === 'PAID' ||
+                        order.state === 'COMPLETED'
+                    ) {
+                        <section class="details-card text-center">
+                            <div class="flex items-center gap-3 text-emerald-700 justify-center ">
+                            <svg data-p-icon="check-circle" [size]="28"></svg>
+                            <h2 class="text-3xl font-semibold">Commande confirmée</h2>
+                            </div>
+
+                            <p class="mt-3 text-sm text-slate-500">
+                            Le client a accepté les produits, les quantités et les prix.
+                            </p>
+
+                            @if (order.confirmedAt) {
+                                <p class="mt-2 text-sm text-slate-500">
+                                    Confirmation enregistrée le
+                                    {{ order.confirmedAt | date:'dd/MM/yyyy à HH:mm':'UTC' }} UTC
+                                </p>
+                            }
                         </section>
                     }
                 </aside>
