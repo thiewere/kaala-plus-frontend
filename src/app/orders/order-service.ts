@@ -53,4 +53,8 @@ export class OrderService {
   getOrderDetails(reference: string): Observable<OrderViewResponse> {
     return this.httpClient.get<OrderViewResponse>(`${this.baseUrl}orders/${reference}/details`);
   }
+
+  confirmOrder(reference: string): Observable<void> {
+    return this.httpClient.patch<void>(`${this.baseUrl}orders/${reference}/confirm`, {});
+  }
 }
