@@ -21,9 +21,15 @@
             </nav>
 
             <header class="mb-6 mt-2">
-                <h1 class=" font-bold text-cyan-900 md:text-3xl">
-                    Commande {{ order.reference }}
-                </h1>
+                <div class="flex items-center gap-3">
+                    <h1 class=" font-bold text-cyan-900 md:text-3xl">
+                        Commande {{ order.reference }}
+                    </h1>
+                     <p-tag
+                        [value]="getStatusLabel(order.state)"
+                        [severity]="getStatusSeverity(order.state)"
+                        />
+                </div>
 
                 <p class="mt-2 text-sm text-slate-500">
                     Créée le {{ order.createdAt | date:'dd/MM/yyyy' }}
@@ -229,7 +235,7 @@
                         <section class="details-card text-center">
                             <div class="flex items-center gap-3 text-emerald-700 justify-center ">
                             <svg data-p-icon="check-circle" [size]="28"></svg>
-                            <h2 class="text-3xl font-semibold">Commande confirmée</h2>
+                            <h2 class="text-3xl font-semibold">Commande {{getStatusLabel(order.state)}}</h2>
                             </div>
 
                             <p class="mt-3 text-sm text-slate-500">

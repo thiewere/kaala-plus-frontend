@@ -13,10 +13,12 @@ import { ButtonModule } from 'primeng/button';
 import { CheckCircle } from '@primeicons/angular/check-circle';
 
 import { startWith, Subject, switchMap } from 'rxjs';
+import { getStatusLabel, getStatusSeverity } from '../order-status.utils';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-order-details',
-  imports: [DatePipe, RouterLink, Header, Card, DecimalPipe, ButtonModule, CheckCircle, ArrowLeft],
+  imports: [DatePipe, RouterLink, Header, Card, DecimalPipe, ButtonModule, CheckCircle, ArrowLeft, TagModule],
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',
 })
@@ -40,6 +42,9 @@ export class OrderDetails {
     ))
   );
   paymentSummary = toSignal(this.paymentService.getOrderPaymentSummary(this.orderReference!));
+
+  protected readonly getStatusLabel = getStatusLabel;
+  protected readonly getStatusSeverity = getStatusSeverity;
 
   submit() {
     this.orderService.confirmOrder(this.orderReference!).subscribe({
