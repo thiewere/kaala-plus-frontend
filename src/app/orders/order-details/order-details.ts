@@ -11,14 +11,17 @@ import { ArrowLeft } from '@primeicons/angular/arrow-left';
 import { PaymentService } from '../../payments/payment-service';
 import { ButtonModule } from 'primeng/button';
 import { CheckCircle } from '@primeicons/angular/check-circle';
-
+import { Plus } from '@primeicons/angular/plus';
 import { startWith, Subject, switchMap } from 'rxjs';
 import { getStatusLabel, getStatusSeverity } from '../order-status.utils';
 import { TagModule } from 'primeng/tag';
+import { CreditCard } from '@primeicons/angular/credit-card';
+import { DialogModule } from 'primeng/dialog';
+import { PaymentForm } from '../../payments/payment-form/payment-form';
 
 @Component({
   selector: 'app-order-details',
-  imports: [DatePipe, RouterLink, Header, Card, DecimalPipe, ButtonModule, CheckCircle, ArrowLeft, TagModule],
+  imports: [DatePipe, RouterLink, Header, Card, DecimalPipe, ButtonModule, CheckCircle, ArrowLeft, Plus, TagModule, CreditCard, DialogModule, PaymentForm],
   templateUrl: './order-details.html',
   styleUrl: './order-details.scss',
 })
@@ -45,6 +48,8 @@ export class OrderDetails {
 
   protected readonly getStatusLabel = getStatusLabel;
   protected readonly getStatusSeverity = getStatusSeverity;
+
+  showPaymentDialog: boolean = false;
 
   submit() {
     this.orderService.confirmOrder(this.orderReference!).subscribe({

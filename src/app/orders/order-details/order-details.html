@@ -160,9 +160,21 @@
                                     </table>
                                 </div>
                             } @else {
-                                <div class="py-8 text-center text-slate-500">
-                                    <i class="pi pi-credit-card mb-4 text-3xl"></i>
+                                <div class="py-8 flex flex-col  gap-3 items-center text-slate-500">
+                                    <svg data-p-icon="credit-card" size="24"></svg>
                                     <p class="font-medium">Aucun paiement enregistré</p>
+                                    <a
+                                        (click)="showPaymentDialog = true"
+                                        aria-label="Ajouter un paiement"
+                                        title="Ajouter un paiement"
+                                        class="mt-3 inline-flex size-9 items-center justify-center rounded-full
+                                                bg-emerald-700 hover:bg-emerald-800
+                                                focus-visible:outline-2 focus-visible:outline-offset-2
+                                                focus-visible:outline-emerald-700 cursor-pointer"
+                                        >
+                                       <svg data-p-icon="plus" color="white" size="24"></svg>
+                                    </a>
+
                                 </div>
                             }
                         </section>
@@ -256,4 +268,18 @@
             <p class="p-6 text-slate-500">Chargement de la commande…</p>
         }
     </p-card>
+
+     <div class="flex justify-center">
+            
+        <p-dialog [(visible)]="showPaymentDialog" [modal]="true" header="Ajouter un nouveau paiement" >
+             @if (showPaymentDialog) {
+                @if (orderDetails()?.reference; as reference) {
+                    <app-payment-form 
+                        [dialogMode]="true"
+                        [orderReference]="reference"
+                    />
+                }
+             }
+        </p-dialog>
+    </div>
 </div>
