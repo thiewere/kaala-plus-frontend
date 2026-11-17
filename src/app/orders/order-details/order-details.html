@@ -116,11 +116,29 @@
                         </div> 
                     </section>
 
-                    @if (paymentSummary(); as summary) {
+                    @if (paymentSummary() && order.state !== 'READY_FOR_CONFIRMATION') {
+                        @let summary = paymentSummary()!;
                         <section class="details-card">
-                            <h2 class="mb-4 text-lg font-semibold text-slate-900">
-                                Paiements
-                            </h2>
+                            <div class="flex justify-between items-center">
+                                <h2 class="mb-4 text-lg font-semibold text-slate-900">
+                                    Paiements
+                                </h2>
+
+                                @if (order.state !== 'PAID' && order.state !== 'CONFIRMED' &&
+                                    order.state !== 'READY_FOR_CONFIRMATION') {
+                                    <a
+                                        (click)="showPaymentDialog = true"
+                                        aria-label="Ajouter un paiement"
+                                        title="Ajouter un paiement"
+                                        class="inline-flex size-5 items-center justify-center rounded-full
+                                                bg-emerald-700 hover:bg-emerald-800
+                                                focus-visible:outline-2 focus-visible:outline-offset-2
+                                                focus-visible:outline-emerald-700 cursor-pointer"
+                                        >
+                                       <svg data-p-icon="plus" color="white"></svg>
+                                    </a>
+                                }
+                            </div>
 
                             @if (summary.payments.length > 0) {
                                 <div class="overflow-x-auto">
