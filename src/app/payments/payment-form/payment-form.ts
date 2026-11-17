@@ -1,5 +1,5 @@
 import { DecimalPipe, formatDate, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { Header } from '../../header/header';
 import { HeaderData } from '../../header/header-data.model';
@@ -28,7 +28,7 @@ import { Router } from '@angular/router';
   templateUrl: './payment-form.html',
   styleUrl: './payment-form.scss',
 })
-export class PaymentForm {
+export class PaymentForm implements OnInit {
 
   orderServer = inject(OrderService);
   paymentService = inject(PaymentService);
@@ -36,6 +36,7 @@ export class PaymentForm {
   router = inject(Router);
 
   dialogMode = input(false);
+  orderReference = input<string>();
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Paiement', icon: 'money-bill'});
 
@@ -131,6 +132,26 @@ export class PaymentForm {
     .subscribe(() => {
       this.updateExchangeRate();
     });
+  }
+  
+  
+  ngOnInit(): void {
+    if(this.orderReference() && this.dialogMode()) {
+      this.paymentForm.controls.orderReference.setValue(this.orderReference() as string);
+      this.paymentForm.controls.orderReference.disable();
+      
+      this.paymentService.getOrderPaymentSummary(this.orderReference() as string)      
+        .subscribe(summary => {
+          this.selectedOrder.set(summary);
+
+          if (summary) {
+            this.configurePaymentCurrency(summary);
+          } else {
+            this.paymentForm.controls.currencyId.reset();
+            this.paymentForm.controls.exchangeRate.reset(null);
+          }
+        });
+    }
   }
   
   private configurePaymentCurrency(summary: OrderPaymentSummary): void {
