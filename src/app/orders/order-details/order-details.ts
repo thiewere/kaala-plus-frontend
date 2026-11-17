@@ -69,4 +69,9 @@ export class OrderDetails {
       }
     });
   }
+
+  onPaymentCreated() {
+    this.showPaymentDialog = false;
+    this.refreshOrder$.next(); // Refresh the order details to reflect the new payment
+  }
 }
