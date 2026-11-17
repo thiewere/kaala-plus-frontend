@@ -1,5 +1,5 @@
 import { DecimalPipe, formatDate, NgTemplateOutlet } from '@angular/common';
-import { Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, input, OnInit, output, signal } from '@angular/core';
 import { CardModule } from 'primeng/card';
 import { Header } from '../../header/header';
 import { HeaderData } from '../../header/header-data.model';
@@ -37,6 +37,7 @@ export class PaymentForm implements OnInit {
 
   dialogMode = input(false);
   orderReference = input<string>();
+  paymentCreated = output<void>();
 
   protected readonly headerData = signal<HeaderData>({title: 'Enregistrer un nouveau Paiement', icon: 'money-bill'});
 
@@ -216,8 +217,12 @@ export class PaymentForm implements OnInit {
               severity:'success', 
               summary: 'Paiement effectué', 
               detail: `Le paiement de ${payment.amount} ${payment.currency} a été créé avec succès.`});
-            
-              this.router.navigate(['payments']);
+
+              if (this.dialogMode()) {
+                this.paymentCreated.emit();
+              } else {
+                void this.router.navigate(['payments']);
+              }
           },
           error: (error) => {
             this.messageService.add({
