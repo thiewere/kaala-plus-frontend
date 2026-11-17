@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.details-page {
+  background: #faf9f6;
+}
+
+.details-card {
+  padding: 24px;
+  background: white;
+  border: 1px solid #eef0f2;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgb(15 23 42 / 4%);
+}
+
+@media (max-width: 640px) {
+  .details-page {
+    padding: 16px;
+  }
+
+  .details-card {
+    padding: 18px;
+  }
+}

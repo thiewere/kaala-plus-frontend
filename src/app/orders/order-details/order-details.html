@@ -53,7 +53,7 @@
 
                             <div class="grid grid-cols-1 gap-2 pt-4 sm:grid-cols-[130px_1fr]">
                             <dt class="text-slate-500">Description</dt>
-                                <dd class="whitespace-pre-line break-words text-slate-700">
+                                <dd class="whitespace-pre-line text-slate-700">
                                     {{ order.description || 'Aucune description' }}
                                 </dd>
                             </div>
@@ -275,7 +275,7 @@
                             @if (order.confirmedAt) {
                                 <p class="mt-2 text-sm text-slate-500">
                                     Confirmation enregistrée le
-                                    {{ order.confirmedAt | date:'dd/MM/yyyy à HH:mm':'UTC' }} UTC
+                                    {{ order.confirmedAt | date:"dd/MM/yyyy 'à' HH:mm" }}
                                 </p>
                             }
                         </section>
