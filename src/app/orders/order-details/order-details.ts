@@ -44,7 +44,14 @@ export class OrderDetails {
         this.orderService.getOrderDetails(this.orderReference!)
     ))
   );
-  paymentSummary = toSignal(this.paymentService.getOrderPaymentSummary(this.orderReference!));
+  
+  paymentSummary = toSignal(
+    this.refreshOrder$.pipe(
+      startWith(undefined),
+      switchMap(() =>
+        this.paymentService.getOrderPaymentSummary(this.orderReference!)
+    ))
+  );
 
   protected readonly getStatusLabel = getStatusLabel;
   protected readonly getStatusSeverity = getStatusSeverity;
